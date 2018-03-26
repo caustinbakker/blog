@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Index{% endblock %}
+{% block main %}
+<header>
+    Austin's Blog
+</header>
+
+
+
+<ul>
+    {% for category in categorys %}
+        <li>
+            <a href="{{ url_for('category',category=category.name) }}">{{category.name}}</a>
+            <img src="static/{{category.imagepath}}" width="100" height="100" alt="">
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

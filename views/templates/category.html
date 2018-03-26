@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+
+{% block title %} {{category.name}} {% endblock %}
+
+
+{% block main %}
+<header>
+    {{category.name}}
+    <img src="static/{{category.imagepath}}" width="100" height="100" alt="">
+</header>
+{% endblock %}
