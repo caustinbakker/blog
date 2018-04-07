@@ -1,0 +1,74 @@
+/* VARIABLES */
+$primary-color:#303F9F;
+
+body{
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Head Elements*/
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+/* Classes */
+
+/* Category's */
+
+.category-container{
+    position: relative;
+    margin: 5% 0;
+    justify-content: center;
+    display: flex;
+}
+.category-wrapper{
+    display: inline-block;
+    height: 25hw;
+    width: 25vw;
+}
+.category-name{
+
+    position: relative;
+    width: 100%;
+    bottom: 100%;
+    text-align: center;
+}
+.category-link{
+    width: 100%;
+    height: 100%;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+.flashes{
+    li {
+        label{
+            display: block;
+            div{
+                color: lighten($primary-color, 30%);
+                background: $primary-color;
+                text-align: center;
+                font-size: 1.5rem;
+                width: 100%;
+                height: 100%;
+            }
+            input{
+                position: absolute;
+                opacity: 0;
+            }
+            input:checked ~ div,{
+                height: 0;
+                opacity: 0;
+            }
+        }
+    }
+
+}
+
+
+/* Id's */
