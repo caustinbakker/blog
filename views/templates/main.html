@@ -5,7 +5,7 @@
 <header>
     Austin's Blog
 </header>
-
+<a href="create_post"> create post link</a>
 <ul class='category-container'>
     {% for category in categorys %}
         <li class='category-wrapper'>
@@ -15,4 +15,17 @@
         </li>
     {% endfor %}
 </ul>
+<ul>
+    {% for post in posts %}
+    <li class='post'>
+        <header>
+            {{post.title}}
+        </header>
+        <article>
+            {{post.content}}
+        </article>
+    </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

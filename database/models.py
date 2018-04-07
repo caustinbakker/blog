@@ -20,12 +20,23 @@ class Post(Model):
     """Model for posts."""
 
     title = CharField()
+    content = CharField()
     imagepath = CharField()
 
     class Meta(object):
         """Select database."""
 
         database = db
+
+    @classmethod
+    def create_post(cls, title, content):
+        try:
+            cls.create(
+            title=title,
+            content=content
+            )
+        except IntegrityError:
+            return 'Error'
 
 
 def initialize():
