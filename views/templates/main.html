@@ -6,13 +6,12 @@
     Austin's Blog
 </header>
 
-
-
-<ul>
+<ul class='category-container'>
     {% for category in categorys %}
-        <li>
-            <a href="{{ url_for('category',category=category.name) }}">{{category.name}}</a>
-            <img src="static/{{category.imagepath}}" width="100" height="100" alt="">
+        <li class='category-wrapper'>
+            <a class='category-link'href="{{ url_for('category',category=category.name) }}">            <img src="static/{{category.imagepath}}" alt=""></a>
+
+            <div class='category-name'> {{category.name}} </div>
         </li>
     {% endfor %}
 </ul>

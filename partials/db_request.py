@@ -3,12 +3,16 @@ from __main__ import app
 from database.models import db
 from flask import g
 from peewee import OperationalError
+import sass
 
 
 @app.before_request
 def before_request():
     """Connect database connect."""
     g.db = db
+    sass.compile(dirname=('views/static/sass', 'views/static/css'),
+                 output_style='compressed')
+    print('CSS updated')
     try:
         g.db.connect()
     except OperationalError:

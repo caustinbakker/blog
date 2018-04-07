@@ -2,9 +2,28 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
         <title>{% block title %}{% endblock %} | Austin's Blog</title>
     </head>
     <body>
-{% block main %}{% endblock %}
+
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class='flashes'>
+                {% for message in messages %}
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <div>  {{message}}</div>
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% block main %}{% endblock %}
     </body>
 </html>
