@@ -2,30 +2,28 @@
 
 {% block title %}Index{% endblock %}
 {% block main %}
-<header>
-    Austin's Blog
+<header class='hero'>
+        {% set first_post = posts.get().id %}
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Contact</a>
+        </nav>
+        <div>  </div>
+        <img src="static/category/books.jpg" alt="">
 </header>
 
 <!-- First post -->
-<li>
-    {% set first_post = posts.get().id %}
-    <header>
-        {{posts.get().title}}
-    </header>
-    <article>
-        {{posts.get().content}}
-    </article>
-</li>
+
 
 
 <!-- Display All categorys -->
-<a href="create_post"> create post link</a>
 <ul class='category-container'>
     {% for category in categorys %}
         <li class='category-wrapper'>
-            <a class='category-link'href="{{ url_for('category',category=category.name) }}">            <img src="static/{{category.imagepath}}" alt=""></a>
-
-            <div class='category-name'> {{category.name}} </div>
+            <span>  </span>
+            <content> <h1>TEXT HERE</h1> </content>
+            <img src="static/{{category.imagepath}}" alt="">
         </li>
     {% endfor %}
 </ul>
@@ -36,11 +34,12 @@
     {% for post in posts %}
         {% if post.id != first_post%}
             <li class='post'>
+                <!-- background fade -->
                 <div>  </div>
-                <a href="#"> View Blog Post</a>
                 <article>
                     <h1>{{post.title}}</h1>
                     bla bla bla
+                    <button type="button" name="button">Read More</button>
                 </article>
 
                 <img src="static/category/cad.jpg" alt="">

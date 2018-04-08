@@ -54,11 +54,11 @@ def testfunctions():
     """Test function."""
     try:
         Category.create(
-            name='CAD',
+            name='test3',
             imagepath='category/cad.jpg'
         )
         Category.create(
-            name='Solidworks',
+            name='test1',
             imagepath='category/cad.jpg'
         )
     except IntegrityError:

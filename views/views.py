@@ -10,8 +10,8 @@ from flask_fileupload import FlaskFileUpload
 @app.route('/', methods=('GET', 'POST'))
 def main():
     """Display main webpage."""
-    flash('You were successfully logged in')
-    flash('You were successfully logged in')
+    # flash('You were successfully logged in')
+    # flash('You were successfully logged in')
     return render_template('main.html', categorys=models.Category, posts=models.Post.select().order_by(models.Post.created_date.desc()))
 
 
