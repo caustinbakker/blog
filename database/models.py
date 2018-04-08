@@ -1,5 +1,7 @@
 """models."""
 from peewee import *
+import datetime
+
 
 db = SqliteDatabase('database/blog.db')
 
@@ -21,7 +23,8 @@ class Post(Model):
 
     title = CharField()
     content = CharField()
-    imagepath = CharField()
+    imagepath = CharField(default='Null')
+    created_date = DateTimeField(default=datetime.datetime.today())
 
     class Meta(object):
         """Select database."""
@@ -32,8 +35,8 @@ class Post(Model):
     def create_post(cls, title, content):
         try:
             cls.create(
-            title=title,
-            content=content
+                title=title,
+                content=content
             )
         except IntegrityError:
             return 'Error'

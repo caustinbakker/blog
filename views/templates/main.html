@@ -5,6 +5,20 @@
 <header>
     Austin's Blog
 </header>
+
+<!-- First post -->
+<li>
+    {% set first_post = posts.get().id %}
+    <header>
+        {{posts.get().title}}
+    </header>
+    <article>
+        {{posts.get().content}}
+    </article>
+</li>
+
+
+<!-- Display All categorys -->
 <a href="create_post"> create post link</a>
 <ul class='category-container'>
     {% for category in categorys %}
@@ -15,16 +29,23 @@
         </li>
     {% endfor %}
 </ul>
+
+
+<!-- All posts besides first post -->
 <ul>
     {% for post in posts %}
-    <li class='post'>
-        <header>
-            {{post.title}}
-        </header>
-        <article>
-            {{post.content}}
-        </article>
-    </li>
+        {% if post.id != first_post%}
+            <li class='post'>
+                <div>  </div>
+                <a href="#"> View Blog Post</a>
+                <article>
+                    <h1>{{post.title}}</h1>
+                    bla bla bla
+                </article>
+
+                <img src="static/category/cad.jpg" alt="">
+            </li>
+        {% endif %}
     {% endfor %}
 </ul>
 

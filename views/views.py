@@ -4,6 +4,7 @@ from database import models
 from flask import Flask, render_template, url_for, redirect, flash
 from peewee import DoesNotExist
 from views import forms
+from flask_fileupload import FlaskFileUpload
 
 
 @app.route('/', methods=('GET', 'POST'))
@@ -11,7 +12,7 @@ def main():
     """Display main webpage."""
     flash('You were successfully logged in')
     flash('You were successfully logged in')
-    return render_template('main.html', categorys=models.Category, posts=models.Post.select())
+    return render_template('main.html', categorys=models.Category, posts=models.Post.select().order_by(models.Post.created_date.desc()))
 
 
 @app.route('/<category>')
@@ -30,7 +31,8 @@ def create_post():
     """Create a blog post."""
     form = forms.Create_post()
     if form.validate_on_submit():
-        models.Post.create_post(
+        f = request.files['file']
+        models.Post.create(
             title=form.title.data,
             content=form.content.data
         )
