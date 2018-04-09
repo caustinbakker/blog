@@ -31,35 +31,9 @@ class Post(Model):
 
         database = db
 
-    @classmethod
-    def create_post(cls, title, content):
-        try:
-            cls.create(
-                title=title,
-                content=content
-            )
-        except IntegrityError:
-            return 'Error'
-
 
 def initialize():
     """Create tables."""
     db.connect()
     db.create_tables([Category, Post], safe=True)
-    testfunctions()
     db.close()
-
-
-def testfunctions():
-    """Test function."""
-    try:
-        Category.create(
-            name='test3',
-            imagepath='category/cad.jpg'
-        )
-        Category.create(
-            name='test1',
-            imagepath='category/cad.jpg'
-        )
-    except IntegrityError:
-        pass

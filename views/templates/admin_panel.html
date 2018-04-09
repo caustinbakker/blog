@@ -1,0 +1,13 @@
+<ul>
+    {% for category in categorys %}
+    <li>{{category.name}}</li>
+    {% endfor %}
+    <a href="{{url_for('create_category')}}">Create new Category</a>
+</ul>
+
+<ul>
+    {% for post in posts %}
+    <li>{{post.title}}</li>
+    {% endfor %}
+    <a href="{{url_for('create_post')}}">Create new Post</a>
+</ul>

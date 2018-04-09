@@ -25,17 +25,24 @@ ul, li, a{
     position: relative;
     justify-content: center;
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 .category-wrapper{
     position: relative;
-    height: 33vw;
+    height: 25vw;
+
     transition: all 1s;
-    flex-basis: 0;
+    flex-basis: 25%;
     flex-grow: 1;
+    // width: 33%;
+
     &:hover{
         z-index: 5;
         box-shadow: 0 0 100px 10px $dark-primary-color;
-        flex-grow: 1.5;
+        transition: all 1s;
+        max-width: 40%;
+        flex-grow: 2;
         span{
             opacity: 0;
         }
@@ -56,7 +63,6 @@ ul, li, a{
         h1{
             color: white;
             width: 90%;
-            border-bottom: 1px solid;
             display: inline-block;
         }
     }
