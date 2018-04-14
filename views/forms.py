@@ -4,23 +4,23 @@ from wtforms.validators import DataRequired, ValidationError
 from wtforms import DateField, StringField, FileField
 
 
-class Create_post(FlaskForm):
-    """Add planning to database."""
-
-    title = StringField('Title',
-                        validators=[DataRequired()]
-                        )
-    content = StringField('Content',
-                          validators=[DataRequired()]
-                          )
-
-
-class Create_category(FlaskForm):
+class Category(FlaskForm):
     """Category form."""
 
     name = StringField('Category name',
                        validators=[DataRequired()]
                        )
     image = FileField('image',
+                      validators=[DataRequired()]
+                      )
+
+
+class Post(FlaskForm):
+    """Add planning to database."""
+
+    title = StringField('Title',
+                        validators=[DataRequired()]
+                        )
+    content = StringField('Content',
                           validators=[DataRequired()]
                           )

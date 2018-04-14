@@ -7,7 +7,7 @@ import sass
 
 
 @app.before_request
-def before_request():
+def abefore_request():
     """Connect database connect."""
     g.db = db
     sass.compile(dirname=('views/static/sass', 'views/static/css'),

@@ -10,14 +10,14 @@
 
     <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 {% block flash %}
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
             <ul class='flashes'>
-                {% for message in messages %}
+                {% for category, message in messages %}
                 <li>
                     <label>
                         <input type="checkbox">
-                        <div>  {{message}}</div>
+                        <div class={{category}}>  {{message}} | {{ category }}</div>
                     </label>
                 </li>
                 {% endfor %}

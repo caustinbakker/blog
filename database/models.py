@@ -10,7 +10,7 @@ class Category(Model):
     """model for all avaible category's."""
 
     name = CharField(unique=True)
-    imagepath = CharField()
+    image = CharField()
 
     class Meta(object):
         """Select database."""

@@ -3,6 +3,7 @@ from flask import Flask
 from peewee import *
 from livereload import Server, shell
 from flask_uploads import UploadSet, IMAGES, configure_uploads
+import time
 
 
 app = Flask(__name__,
@@ -25,7 +26,7 @@ if __name__ == '__main__':
     models.initialize()
     print('=' * 100)
     print(__file__)
-    server = Server(app.wsgi_app)
-    # server.watch
-    server.serve()
+    # server = Server(app.wsgi_app)
+    # server.watch('/views/static/css/*')
+    # server.serve(restart_delay=5)
 app.run(debug=True, port=5500, host='127.0.0.1')

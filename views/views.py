@@ -6,7 +6,6 @@ from peewee import DoesNotExist
 from views import forms
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from werkzeug.utils import secure_filename
-import os
 photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/'
 configure_uploads(app, photos)
@@ -31,32 +30,35 @@ def category(category=None):
     return render_template('category.html', category=categorys)
 
 
-# admin
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_panel():
     """Display admin panel."""
+    flash('Hello world!', 'success')
     return render_template('admin_panel.html', categorys=models.Category.select(),
                            posts=models.Post.select())
 
 
-@app.route('/admin/create_post', methods=['GET', 'POST'])
-def create_post():
-    """Create a blog post."""
-    form = forms.Create_post()
+@app.route('/admin/create/<model>', methods=['GET', 'POST'])
+def create_item(model):
+    """Create a new item in the database."""
+    form = getattr(forms, model.title())
+    form = form()
     if form.validate_on_submit():
-        models.Post.create(
-            title=form.title.data,
-            content=form.content.data
-        )
-        return 'Success'
-    return render_template('create_post.html', form=form)
+        items = {}
+        model = getattr(models, model.title())
+        for field in form:
+            items.update({field.id: field.data})
+        try:
+            photos.save(request.files['image'])
+        model.create(**items)
+
+ # redirect(url_for('admin_panel'))
+    return render_template('create_item.html', form=form)
 
 
-@app.route('/admin/create_category', methods=['GET', 'POST'])
-def create_category():
-    """Create a category."""
-    form = forms.Create_category()
-    if form.validate_on_submit():
-        photos.save(request.files['image'])
-        flash('Category added, sucess')
-    return render_template('create_category.html', form=form)
+@app.route('/admin/delete/<int:id>/<model>/<name>')
+def delete_item(model, id, name):
+    """Delete a item."""
+    models.db.execute_sql("DELETE FROM {} WHERE id = {}".format(model, id))
+    flash(u'You deleted {} from {}'.format(name, model), 'error')
+    return redirect(url_for('admin_panel'))

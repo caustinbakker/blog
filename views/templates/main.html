@@ -46,4 +46,22 @@
     {% endfor %}
 </ul> -->
 
+<ul class='project'>
+    {% for post in posts %}
+        {% if post.id != first_post%}
+    <li>
+        <!-- display project name -->
+        <!-- display project context -->
+        <div>
+            <h1>hello</h1>
+            <content>
+                dyscription
+            </content>
+        </div>
+        <!-- display project image -->
+        <img src="http://via.placeholder.com/350x300" alt="">
+    </li>
+        {% endif %}
+    {% endfor %}
+</ul>
 {% endblock %}
