@@ -26,20 +26,23 @@ ul, li, a{
     position: relative;
     justify-content: center;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
 }
 .category-wrapper{
     position: relative;
     height: 10vw;
-    transition: all 2s;
+
+    transition: all 1s;
     flex-basis: 25%;
     flex-grow: 1;
+    // width: 33%;
 
     &:hover{
         z-index: 5;
         box-shadow: 0 0 100px 10px $dark-primary-color;
-
-        // max-width: 40%;
+        transition: all 1s;
+        max-width: 40%;
         flex-grow: 2;
         span{
             opacity: 0;

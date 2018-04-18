@@ -5,7 +5,9 @@ from flask import Flask, render_template, url_for, redirect, flash, request
 from peewee import DoesNotExist
 from views import forms
 from flask_uploads import UploadSet, IMAGES, configure_uploads
-from werkzeug.utils import secure_filename
+import os
+
+
 photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/'
 configure_uploads(app, photos)
@@ -50,11 +52,22 @@ def create_item(model):
     if form.validate_on_submit():
         items = {}
         model = getattr(models, model.title())
+        file = request.files['image']
+        filename = form.name.data + '.' +file.filename.split('.')[-1]
+        try:
+            file.save('static/' + str(model._meta.table_name) + '/' +
+                      filename)
+        except FileNotFoundError:
+            os.mkdir('static/' + str(model._meta.table_name))
+            file.save('static/' + str(model._meta.table_name) + '/' +
+                      filename)
+
+        items.update({'image': str(model._meta.table_name) + '/' + str(filename)})
         for field in form:
-            items.update({field.id: field.data})
-            photos.save(request.files['image'])
+            if field.id != 'image':
+                items.update({field.id: field.data})
         model.create(**items)
-        redirect(url_for('admin_panel'))
+        return redirect(url_for('admin_panel'))
     return render_template('create_item.html', form=form)
 
 
@@ -62,7 +75,7 @@ def create_item(model):
 def delete_item(model, id, name):
     """Delete a item."""
     models.db.execute_sql("DELETE FROM {} WHERE id = {}".format(model, id))
-    flash(u'You deleted {} from {}'.format(name, model), 'error')
+    flash(u'You deleted {} from {}'.format(name, model), 'Success')
     return redirect(url_for('admin_panel'))
 
 

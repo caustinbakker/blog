@@ -34,7 +34,7 @@ class Post(Model):
 
     name = CharField()
     content = CharField()
-    imagepath = CharField(default='Null')
+    image = CharField(default='Null')
     created_date = DateTimeField(default=datetime.datetime.today())
 
     class Meta(object):

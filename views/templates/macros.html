@@ -14,7 +14,7 @@
     {% for modelname in modellist.select() %}
     <li class='admin_item_list'>
         <h4>{{modelname.name}}</h4>
-        <a href="{{url_for('delete_item',model='modelname', id=modelname.id, name=modelname.name)}}">Delete</a>
+        <a href="{{url_for('delete_item',model=modelname._meta.table_name, id=modelname.id, name=modelname.name)}}">Delete</a>
     </li>
     {% endfor %}
     <a href="{{url_for('create_item', model=modellist._meta.table_name)}}">Create new {{modellist._meta.table_name}}</a>
