@@ -6,6 +6,17 @@ import datetime
 db = SqliteDatabase('database/blog.db')
 
 
+class Project(Model):
+    """Projects."""
+
+    name = CharField(unique=True)
+
+    class Meta(object):
+        """Select database."""
+
+        database = db
+
+
 class Category(Model):
     """model for all avaible category's."""
 
@@ -21,7 +32,7 @@ class Category(Model):
 class Post(Model):
     """Model for posts."""
 
-    title = CharField()
+    name = CharField()
     content = CharField()
     imagepath = CharField(default='Null')
     created_date = DateTimeField(default=datetime.datetime.today())
@@ -35,5 +46,5 @@ class Post(Model):
 def initialize():
     """Create tables."""
     db.connect()
-    db.create_tables([Category, Post], safe=True)
+    db.create_tables([Category, Post, Project], safe=True)
     db.close()

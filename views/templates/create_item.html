@@ -3,7 +3,7 @@
 
 {% block main %}
 {% from 'macros.html' import render_field %}
-        <form class="form" method="post" enctype="multipart/form-data">
+        <form class="form-create" method="post" enctype="multipart/form-data">
             {% for field in form %}
                 {{ render_field(field) }}
             {% endfor %}

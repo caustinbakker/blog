@@ -1,22 +1,11 @@
 {% extends "layout.html" %}
 {% block main %}
-<ul>
-    {% for category in categorys %}
-    <li class='admin_item_list'>
-        <h4> {{category.name}} </h4>
-        <a href="{{url_for('delete_item', model='Category', id=category.id, name=category.name)}}"> Delete</a>
-    </li>
-    {% endfor %}
-    <a href="{{url_for('create_item', model='Category')}}">Create new Category</a>
-</ul>
+{% from 'macros.html' import admin_item_list %}
 
-<ul>
-    {% for post in posts %}
-    <li class='admin_item_list'>
-        <h4>{{post.title}}</h4>
-        <a href="{{url_for('delete_item',model='post', id=post.id, name=post.title)}}">Delete</a>
-    </li>
-    {% endfor %}
-    <a href="{{url_for('create_item', model='post')}}">Create new Category</a>
-</ul>
+{{ admin_item_list(categorys) }}
+
+{{ admin_item_list(posts) }}
+
+{{ admin_item_list(projects) }}
+
 {% endblock %}

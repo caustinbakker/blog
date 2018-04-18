@@ -16,7 +16,9 @@ def main():
     """Display main webpage."""
     # flash('You were successfully logged in')
     # flash('You were successfully logged in')
-    return render_template('main.html', categorys=models.Category, posts=models.Post.select().order_by(models.Post.created_date.desc()))
+    return render_template('main.html',
+                           categorys=models.Category,
+                           posts=models.Post.select())
 
 
 @app.route('/<category>')
@@ -34,8 +36,10 @@ def category(category=None):
 def admin_panel():
     """Display admin panel."""
     flash('Hello world!', 'success')
-    return render_template('admin_panel.html', categorys=models.Category.select(),
-                           posts=models.Post.select())
+    return render_template('admin_panel.html',
+                           categorys=models.Category,
+                           posts=models.Post,
+                           projects=models.Project)
 
 
 @app.route('/admin/create/<model>', methods=['GET', 'POST'])
@@ -48,11 +52,9 @@ def create_item(model):
         model = getattr(models, model.title())
         for field in form:
             items.update({field.id: field.data})
-        try:
             photos.save(request.files['image'])
         model.create(**items)
-
- # redirect(url_for('admin_panel'))
+        redirect(url_for('admin_panel'))
     return render_template('create_item.html', form=form)
 
 
@@ -62,3 +64,9 @@ def delete_item(model, id, name):
     models.db.execute_sql("DELETE FROM {} WHERE id = {}".format(model, id))
     flash(u'You deleted {} from {}'.format(name, model), 'error')
     return redirect(url_for('admin_panel'))
+
+
+@app.route('/projects/<id>')
+def project(id):
+    """Display Project."""
+    # display's project in timeline form
