@@ -3,7 +3,8 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/css/styles.css') }}">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %} | Austin's Blog</title>
     </head>
     <body>
@@ -26,5 +27,6 @@
     {% endwith %}
 {% endblock %}
     {% block main %}{% endblock %}
+    <footer></footer>
     </body>
 </html>

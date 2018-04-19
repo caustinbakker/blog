@@ -29,6 +29,26 @@ class Category(Model):
         database = db
 
 
+class ProjectPost(Model):
+    """Model for posts."""
+
+    project = ForeignKeyField(Project, backref='ProjectPost')
+    name = CharField()
+    content = CharField()
+    image = CharField(default='Null')
+    created_date = DateTimeField(default=datetime.datetime.today())
+
+    class Meta(object):
+        """Select database."""
+
+        database = db
+
+    @classmethod
+    def last(cls, id):
+        """Grab the last item from the model."""
+        return cls.select(cls.id).order_by(cls.created_date.desc()).get()
+
+
 class Post(Model):
     """Model for posts."""
 
@@ -46,5 +66,6 @@ class Post(Model):
 def initialize():
     """Create tables."""
     db.connect()
-    db.create_tables([Category, Post, Project], safe=True)
+    db.create_tables([Category, Post, Project, ProjectPost], safe=True)
+    # ProjectPost.create(project_id=1, name='name', content='content', image='Null', created_date='19-04-2018')
     db.close()

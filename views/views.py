@@ -20,7 +20,7 @@ def main():
     # flash('You were successfully logged in')
     return render_template('main.html',
                            categorys=models.Category,
-                           posts=models.Post.select())
+                           projects=models.Project)
 
 
 @app.route('/<category>')
@@ -45,24 +45,43 @@ def admin_panel():
 
 
 @app.route('/admin/create/<model>', methods=['GET', 'POST'])
-def create_item(model):
+@app.route('/admin/create/<model>/<project_id>', methods=['GET', 'POST'])
+def create_item(model, project_id=None):
     """Create a new item in the database."""
-    form = getattr(forms, model.title())
+    items = {}
+    if project_id is not None:
+        model = str(model.title() + 'Post')
+        form = getattr(forms, model)
+        model = getattr(models, model)
+        items.update({'project_id': project_id})
+    else:
+        form = getattr(forms, model.title())
+        model = getattr(models, model.title())
     form = form()
     if form.validate_on_submit():
-        items = {}
-        model = getattr(models, model.title())
-        file = request.files['image']
-        filename = form.name.data + '.' +file.filename.split('.')[-1]
         try:
-            file.save('static/' + str(model._meta.table_name) + '/' +
-                      filename)
-        except FileNotFoundError:
-            os.mkdir('static/' + str(model._meta.table_name))
-            file.save('static/' + str(model._meta.table_name) + '/' +
-                      filename)
+            file = request.files['image']
+            filepath = save_file(file, model, form, project_id)
+            print('returned filepath' + ' ' + filepath)
+            items.update({'image': filepath})
+        except Exception:
+            pass
+        #     filename = form.name.data + '.' + file.filename.split('.')[-1]
+        # except Exception:
+        #     pass
+        # try:
+        #     file.save('static/' + str(model._meta.table_name) + '/' +
+        #               filename)
+        # except FileNotFoundError:
+        #     os.mkdir('static/' + str(model._meta.table_name))
+        #     file.save('static/' + str(model._meta.table_name) + '/' +
+        #               filename)
+        # except Exception:
+        #     pass
+        # try:
+        #     items.update({'image': str(model._meta.table_name) +
+        #                   '/' + str(filename)})
 
-        items.update({'image': str(model._meta.table_name) + '/' + str(filename)})
         for field in form:
             if field.id != 'image':
                 items.update({field.id: field.data})
@@ -79,7 +98,33 @@ def delete_item(model, id, name):
     return redirect(url_for('admin_panel'))
 
 
-@app.route('/projects/<id>')
+@app.route('/project/<id>')
 def project(id):
     """Display Project."""
-    # display's project in timeline form
+    return render_template('project.html',
+                           project=models.Project.get(models.Project.id == id))
+
+
+def save_file(file, model, form, project_id):
+    """Save file."""
+    if project_id is not None:
+        path = (str('static/' + str(model._meta.table_name)) +
+                '/' + str(project_id) + '/')
+    else:
+        path = str('static/' + str(model._meta.table_name) + '/')
+    try:
+        filename = form.name.data + '.' + file.filename.split('.')[-1]
+    except Exception:
+        pass
+
+    filepath = str(path + filename)
+    print(filepath)
+    try:
+        file.save(filepath)
+    except FileNotFoundError:
+        print('Creating File for images | ' + str(path))
+        os.makedirs(path)
+        file.save(filepath)
+    except Exception:
+        print('error')
+    return '/' + filepath

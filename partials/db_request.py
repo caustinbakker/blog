@@ -10,7 +10,9 @@ import sass
 def before_request():
     """Connect database connect."""
     g.db = db
-    sass.compile(dirname=('static/styles/sass', 'static/styles/css'), output_style='compressed')
+    sass.compile(dirname=('static/styles/sass',
+                          'static/styles/css'),
+                 output_style='compressed')
     print('CSS updated')
     try:
         g.db.connect()

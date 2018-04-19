@@ -28,8 +28,7 @@
 </ul>
 
 <ul class='project'>
-    {% for post in posts %}
-        {% if post.id != first_post%}
+    {% for project in projects %}
     <li>
         <!-- display project name -->
         <!-- display project context -->
@@ -38,11 +37,12 @@
             <content>
                 dyscription
             </content>
+            <a href="{{url_for('project', id=project.id)}}">Lees meer</a>
         </div>
         <!-- display project image -->
         <img src="http://via.placeholder.com/350x300" alt="">
+
     </li>
-        {% endif %}
     {% endfor %}
 </ul>
 {% endblock %}

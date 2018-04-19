@@ -7,20 +7,26 @@ from wtforms import DateField, StringField, FileField
 class Category(FlaskForm):
     """Category form."""
 
-    name = StringField('Category name',
-                       validators=[DataRequired()]
-                       )
-    image = FileField('image',
-                      validators=[DataRequired()]
-                      )
+    name = StringField('Category name', validators=[DataRequired()])
+    image = FileField('image', validators=[DataRequired()])
 
 
 class Post(FlaskForm):
     """Add planning to database."""
 
-    title = StringField('Title',
-                        validators=[DataRequired()]
-                        )
-    content = StringField('Content',
-                          validators=[DataRequired()]
-                          )
+    name = StringField('Post Name', validators=[DataRequired()])
+    content = StringField('Content', validators=[DataRequired()])
+
+
+class Project(FlaskForm):
+    """Add Project to database."""
+
+    name = StringField('Project Name', validators=[DataRequired()])
+
+
+class ProjectPost(FlaskForm):
+    """Post's for a project."""
+
+    name = StringField('Post Name', validators=[DataRequired()])
+    content = StringField('Content', validators=[DataRequired()])
+    image = FileField('image', validators=[DataRequired()])
