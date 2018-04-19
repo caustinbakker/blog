@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block main %}
 <ul class='timeline'>
-{% for x in project.ProjectPost.select() %}
-<li>{{x.name}}</li>
+{% for post in project.ProjectPost.select() %}
+<li><a href="#{{post.id}}"></a></li>
 {% endfor %}
 </ul>
 {{project.name}}
@@ -14,6 +14,7 @@
             {% set classname = 'post_2' %}
         {% endif %}
     <li class='{{classname}}'>
+        <a name='{{post.id}}'></a>
         <article>
             <h1>
                 {{post.name}}
