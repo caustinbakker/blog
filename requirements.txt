@@ -1,0 +1,9 @@
+Flask==0.12.2
+Flask-FileUpload==0.5.0
+Flask-Login==0.4.1
+Flask-Uploads==0.2.1
+Flask-WTF==0.14.2
+Jinja2==2.10
+libsass==0.14.2
+peewee==3.1.5
+python-dateutil==2.7.2
