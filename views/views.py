@@ -1,5 +1,5 @@
 """Main section for all views."""
-from __main__ import app
+from app import app
 from database import models
 from flask import Flask, render_template, url_for, redirect, flash, request
 from peewee import DoesNotExist

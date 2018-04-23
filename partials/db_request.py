@@ -1,5 +1,5 @@
 """import app function."""
-from __main__ import app
+from app import app
 from database.models import db
 from flask import g
 from peewee import OperationalError
