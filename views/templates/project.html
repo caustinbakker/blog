@@ -1,19 +1,17 @@
 {% extends "layout.html" %}
 {% block main %}
 <ul class='timeline'>
-{% for post in project.ProjectPost.select() %}
-<li><a href="#{{post.id}}"></a></li>
+{% for post in project.get_posts() %}
+<li>
+    <a href="#{{post.id}}"> RANDOM</a>
+    <div> {{post.name}} </div>
+</li>
 {% endfor %}
 </ul>
 {{project.name}}
 <ul>
-    {% for post in project.ProjectPost.select() %}
-        {% if post.id % 2 != 0%}
-            {% set classname = 'post_1' %}
-        {% else %}
-            {% set classname = 'post_2' %}
-        {% endif %}
-    <li class='{{classname}}'>
+    {% for post in project.get_posts() %}
+    <li class="{{ loop.cycle('post_1', 'post_2') }}">
         <a name='{{post.id}}'></a>
         <article>
             <h1>

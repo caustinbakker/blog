@@ -16,6 +16,10 @@ class Project(Model):
 
         database = db
 
+    def get_posts(self):
+        """Grab all the posts from project."""
+        return ProjectPost.select().where(ProjectPost.project == self).order_by(ProjectPost.created_date)
+
 
 class Category(Model):
     """model for all avaible category's."""
@@ -42,11 +46,6 @@ class ProjectPost(Model):
         """Select database."""
 
         database = db
-
-    @classmethod
-    def last(cls, id):
-        """Grab the last item from the model."""
-        return cls.select(cls.id).order_by(cls.created_date.desc()).get()
 
 
 class Post(Model):

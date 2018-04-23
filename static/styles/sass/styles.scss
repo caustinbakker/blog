@@ -133,7 +133,18 @@ ul, li, a{
         font-weight: 900;
         line-height: 75%;
         margin: 0 0 8% 0;
+        z-index: 5;
+        // &::before{
+        //     content: 'O';
+        //     position: absolute;
+        //     color: lighten($dark-secondary-color, 20%);
+        //     font-size: 600%;
+        //     top: -20%;
+        //     left: -5%;
+        //     z-index: 0;
+        // }
         }
+
     }
     figure{
         flex-basis: 70vw;
@@ -318,15 +329,39 @@ ul, li, a{
     display: flex;
     flex-wrap: wrap;
     height: 100vh;
+    justify-content: center;
     width: 0.1vw;
     margin: 0 2%;
     background: red;
     z-index: 5;
     color: white;
-    a::before{
-        content: '000';
-        position: absolute;
+    li{
+        position: relative;
+        text-align: center;
+        display: inline-block;
+        width: 200%;
     }
+    a{
+        height: 20%;
+        width: 200%;
+        background-color: black;
+        color: black;
+        // border-radius: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        &:hover{
+            width: 5000%;
+            color: white;
+        }
+    }
+    div{
+        display: inline-block;
+        opacity: 0;
+    }
+
 }
 footer{
     height: 20vw;
@@ -334,4 +369,28 @@ footer{
 /* Id's */
 #csrf_token{
     display: none;
+}
+
+// websit scrollbar
+::-webkit-scrollbar {
+    position: absolute;
+    width: 10px;
+    margin-right: 50px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    height: 5px;
+    background: red;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: blue;
+    height: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

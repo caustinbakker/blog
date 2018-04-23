@@ -102,7 +102,8 @@ def delete_item(model, id, name):
 def project(id):
     """Display Project."""
     return render_template('project.html',
-                           project=models.Project.get(models.Project.id == id))
+                           project=models.Project.get(models.Project.id == id)
+                           )
 
 
 def save_file(file, model, form, project_id):
