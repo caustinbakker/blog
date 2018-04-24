@@ -136,15 +136,6 @@ ul, li, a{
         line-height: 75%;
         margin: 0 0 8% 0;
         z-index: 5;
-        // &::before{
-        //     content: 'O';
-        //     position: absolute;
-        //     color: lighten($dark-secondary-color, 20%);
-        //     font-size: 600%;
-        //     top: -20%;
-        //     left: -5%;
-        //     z-index: 0;
-        // }
         }
 
     }
@@ -225,9 +216,14 @@ ul, li, a{
         margin: 0.1%;
         overflow: hidden;
         text-align: center;
+        flex-basis: 25%;
+        background: lighten($dark-primary-color, 10%);
         &:hover{
             img{
                 transform: scale(1.3);
+            }
+            content{
+                opacity: 1;
             }
         }
     }
@@ -261,23 +257,54 @@ ul, li, a{
             opacity: 0.5;
         }
     }
-    a{
-        position: relative;
-        display: block;
-        height: 2vw;
-        width: 20vw;
-        margin: 30vw auto 0 auto;
-        border: solid 1px black;
-        border-radius: 2px;
-        background: $primary-color;
-        color: white;
-    }
     span{
         display: block;
         position: absolute;
+        height: 100%;
         width: 100%;
         margin: 2% 0 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        h1{
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+        }
+        content{
+            position: relative;
+            padding: 2%;
+            display: block;
+            margin-top: 10%;
+            margin-bottom: 30%;
+            font-family: 'Lato', sans-serif;
+            font-weight: 100;
+            opacity: 0;
+            &::before{
+                content: "";
+                background: white;
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                opacity: inherit;
+            }
+        }
+        a{
+            position: relative;
+            display: block;
+            height: 2vw;
+            width: 20vw;
+            margin: 0 auto 0 auto 5%;
+            border: solid 1px black;
+            border-radius: 2px;
+            background: $primary-color;
+            color: white;
+        }
     }
+
 }
 .admin_item_list{
     position: relative;

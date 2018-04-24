@@ -40,11 +40,12 @@
                 <content>
                     dyscription
                 </content>
+                <a href="{{url_for('project', id=project.id)}}">Lees meer</a>
             </span>
-            <a href="{{url_for('project', id=project.id)}}">Lees meer</a>
+
         </div>
         <!-- display project image -->
-        <img src="{{project.get_posts().get().image}}" alt="">
+        <img src="{{project.image()}}" alt="">
 
     </li>
     {% endfor %}

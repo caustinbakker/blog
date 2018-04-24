@@ -21,6 +21,14 @@ class Project(Model):
         return (ProjectPost.select().where(ProjectPost.project == self)
                 .order_by(ProjectPost.created_date))
 
+    def image(self):
+        """Grab image from get_posts."""
+        try:
+            return (ProjectPost.select().where(ProjectPost.project == self)
+                    .order_by(ProjectPost.created_date).get().image)
+        except Exception:
+            pass
+
 
 class Category(Model):
     """model for all avaible category's."""
