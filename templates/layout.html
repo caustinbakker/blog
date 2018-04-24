@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/css/styles.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %} | Austin's Blog</title>
+    </head>
+    <body>
+
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+{% block flash %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <ul class='flashes'>
+                {% for category, message in messages %}
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        <div class={{category}}>  {{message}} | {{ category }}</div>
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+    {% block main %}{% endblock %}
+    <footer></footer>
+    </body>
+</html>
