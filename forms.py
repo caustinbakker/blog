@@ -22,6 +22,7 @@ class Project(FlaskForm):
     """Add Project to database."""
 
     name = StringField('Project Name', validators=[DataRequired()])
+    content = StringField('Content', validators=[DataRequired()])
 
 
 class ProjectPost(FlaskForm):

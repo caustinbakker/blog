@@ -10,6 +10,7 @@ class Project(Model):
     """Projects."""
 
     name = CharField(unique=True)
+    content = CharField()
 
     class Meta(object):
         """Select database."""
