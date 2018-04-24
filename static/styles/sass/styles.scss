@@ -36,31 +36,31 @@ ul, li, a{
     transition: all 1s;
     flex-basis: 25%;
     flex-grow: 1;
-    // width: 33%;
+    &::before {
+        content: "";
+        transition: all 2s ease-in;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $dark-primary-color;
+        opacity: 0.6;
+    }
+    &:hover::before{
+        opacity: 0;
+    }
+
 
     &:hover{
         z-index: 5;
         box-shadow: 0 0 100px 10px $dark-primary-color;
         transition: all 1s;
-        max-width: 40%;
         flex-grow: 2;
-        span{
-            opacity: 0;
-        }
-    }
-    span{
-        transition: all 1s;
-        position: absolute;
-        background: #414141;
-        height: 100%;
-        width: 100%;
-        opacity: 0.7;
-        left: 0;
     }
     content{
         text-align: center;
         width: 100%;
-        position: relative;
+        position: absolute;
         margin: 4% 0;
         h1{
             color: white;
@@ -72,6 +72,10 @@ ul, li, a{
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+    figure{
+        width: 100%;
+        height: 100%;
     }
 }
 .flashes{
@@ -105,15 +109,13 @@ ul, li, a{
 
 // post
 
-.post_1{
+.post{
     width: 100%;
     height: 39.38vw;
     position: relative;
     display: flex;
     justify-content:flex-start;
     align-content:center;
-    background: white;
-    color: $dark-secondary-color;
     align-items: center;
     margin: 2% 0;
     article{
@@ -163,8 +165,13 @@ ul, li, a{
         top: 0;
     }
 }
+.post_1{
+    @extend .post;
+    background: white;
+    color: $dark-secondary-color;
+}
 .post_2{
-    @extend .post_1;
+    @extend .post;
     background: $dark-secondary-color;
     color: white;
 }
@@ -217,6 +224,7 @@ ul, li, a{
         min-width: 24.8%;
         margin: 0.1%;
         overflow: hidden;
+        text-align: center;
         &:hover{
             img{
                 transform: scale(1.3);
@@ -256,8 +264,19 @@ ul, li, a{
     a{
         position: relative;
         display: block;
-        height: 5vw;
+        height: 2vw;
+        width: 20vw;
+        margin: 30vw auto 0 auto;
         border: solid 1px black;
+        border-radius: 2px;
+        background: $primary-color;
+        color: white;
+    }
+    span{
+        display: block;
+        position: absolute;
+        width: 100%;
+        margin: 2% 0 0 0;
     }
 }
 .admin_item_list{
@@ -324,45 +343,45 @@ ul, li, a{
         width: 100%;
     }
 }
-.timeline{
-    position: fixed;
-    display: flex;
-    flex-wrap: wrap;
-    height: 100vh;
-    justify-content: center;
-    width: 0.1vw;
-    margin: 0 2%;
-    background: red;
-    z-index: 5;
-    color: white;
-    li{
-        position: relative;
-        text-align: center;
-        display: inline-block;
-        width: 200%;
-    }
-    a{
-        height: 20%;
-        width: 200%;
-        background-color: black;
-        color: black;
-        // border-radius: 25%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-
-        &:hover{
-            width: 5000%;
-            color: white;
-        }
-    }
-    div{
-        display: inline-block;
-        opacity: 0;
-    }
-
-}
+// .timeline{
+//     position: fixed;
+//     display: flex;
+//     flex-wrap: wrap;
+//     height: 100vh;
+//     justify-content: center;
+//     width: 0.1vw;
+//     margin: 0 2%;
+//     background: red;
+//     z-index: 5;
+//     color: white;
+//     li{
+//         position: relative;
+//         text-align: center;
+//         display: inline-block;
+//         width: 200%;
+//     }
+//     a{
+//         height: 20%;
+//         width: 200%;
+//         background-color: black;
+//         color: black;
+//         // border-radius: 25%;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         overflow: hidden;
+//
+//         &:hover{
+//             width: 5000%;
+//             color: white;
+//         }
+//     }
+//     div{
+//         display: inline-block;
+//         opacity: 0;
+//     }
+// }
+//
 footer{
     height: 20vw;
 }
@@ -372,25 +391,25 @@ footer{
 }
 
 // websit scrollbar
-::-webkit-scrollbar {
-    position: absolute;
-    width: 10px;
-    margin-right: 50px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    height: 5px;
-    background: red;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: blue;
-    height: 5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
+// ::-webkit-scrollbar {
+//     position: absolute;
+//     width: 10px;
+//     margin-right: 50px;
+// }
+//
+// /* Track */
+// ::-webkit-scrollbar-track {
+//     height: 5px;
+//     background: red;
+// }
+//
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//     background: blue;
+//     height: 5px;
+// }
+//
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//     background: #555;
+// }

@@ -9,7 +9,6 @@
     </head>
     <body>
 
-    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 {% block flash %}
     {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
@@ -26,7 +25,16 @@
         {% endif %}
     {% endwith %}
 {% endblock %}
-    {% block main %}{% endblock %}
+    {% block main %}
+    <nav>
+        <ul>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+        </ul>
+    </nav>
+    {% endblock %}
     <footer></footer>
     </body>
 </html>

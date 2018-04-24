@@ -20,9 +20,11 @@
 <ul class='category-container'>
     {% for category in categorys %}
         <li class='category-wrapper'>
-            <span>  </span>
-            <content> <h1>TEXT HERE</h1> </content>
-            <img src="static/{{category.image}}" alt="">
+            <content> <h1>{{category.name}}</h1> </content>
+            <figure>
+                <img src="static/{{category.image}}" alt="">
+            </figure>
+
         </li>
     {% endfor %}
 </ul>
@@ -33,14 +35,16 @@
         <!-- display project name -->
         <!-- display project context -->
         <div>
-            <h1>hello</h1>
-            <content>
-                dyscription
-            </content>
+            <span>
+                <h1>{{project.name}}</h1>
+                <content>
+                    dyscription
+                </content>
+            </span>
             <a href="{{url_for('project', id=project.id)}}">Lees meer</a>
         </div>
         <!-- display project image -->
-        <img src="http://via.placeholder.com/350x300" alt="">
+        <img src="{{project.get_posts().get().image}}" alt="">
 
     </li>
     {% endfor %}

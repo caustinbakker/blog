@@ -21,3 +21,6 @@ if __name__ == '__main__':
     models.initialize()
     print('=' * 100)
     app.run()
+    # server = Server()
+    # # server.watch('docs/*.rst', shell('make html', cwd='docs'))
+    # server.serve()

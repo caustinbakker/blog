@@ -1,13 +1,5 @@
 {% extends "layout.html" %}
 {% block main %}
-<ul class='timeline'>
-{% for post in project.get_posts() %}
-<li>
-    <a href="#{{post.id}}"> RANDOM</a>
-    <div> {{post.name}} </div>
-</li>
-{% endfor %}
-</ul>
 {{project.name}}
 <ul>
     {% for post in project.get_posts() %}
