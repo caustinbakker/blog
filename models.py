@@ -3,7 +3,7 @@ from peewee import *
 import datetime
 
 
-db = SqliteDatabase('database/blog.db')
+db = SqliteDatabase('partials/blog.db')
 
 
 class Project(Model):
@@ -18,7 +18,8 @@ class Project(Model):
 
     def get_posts(self):
         """Grab all the posts from project."""
-        return ProjectPost.select().where(ProjectPost.project == self).order_by(ProjectPost.created_date)
+        return (ProjectPost.select().where(ProjectPost.project == self)
+                .order_by(ProjectPost.created_date))
 
 
 class Category(Model):
@@ -66,5 +67,4 @@ def initialize():
     """Create tables."""
     db.connect()
     db.create_tables([Category, Post, Project, ProjectPost], safe=True)
-    # ProjectPost.create(project_id=1, name='name', content='content', image='Null', created_date='19-04-2018')
     db.close()

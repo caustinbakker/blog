@@ -1,23 +1,17 @@
 """Main section for all views."""
 from app import app
-from database import models
 from flask import Flask, render_template, url_for, redirect, flash, request
 from peewee import DoesNotExist
-from views import forms
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 import os
 
-
-photos = UploadSet('photos', IMAGES)
-app.config['UPLOADED_PHOTOS_DEST'] = 'static/'
-configure_uploads(app, photos)
+import forms
+import models
 
 
 @app.route('/', methods=('GET', 'POST'))
 def main():
     """Display main webpage."""
-    # flash('You were successfully logged in')
-    # flash('You were successfully logged in')
     return render_template('main.html',
                            categorys=models.Category,
                            projects=models.Project)
@@ -66,21 +60,6 @@ def create_item(model, project_id=None):
             items.update({'image': filepath})
         except Exception:
             pass
-        #     filename = form.name.data + '.' + file.filename.split('.')[-1]
-        # except Exception:
-        #     pass
-        # try:
-        #     file.save('static/' + str(model._meta.table_name) + '/' +
-        #               filename)
-        # except FileNotFoundError:
-        #     os.mkdir('static/' + str(model._meta.table_name))
-        #     file.save('static/' + str(model._meta.table_name) + '/' +
-        #               filename)
-        # except Exception:
-        #     pass
-        # try:
-        #     items.update({'image': str(model._meta.table_name) +
-        #                   '/' + str(filename)})
 
         for field in form:
             if field.id != 'image':
@@ -104,6 +83,8 @@ def project(id):
     return render_template('project.html',
                            project=models.Project.get(models.Project.id == id)
                            )
+
+from partials.requests import *
 
 
 def save_file(file, model, form, project_id):
