@@ -3,13 +3,29 @@ $primary-color:#303F9F;
 $secondary-color:#004D40;
 $dark-primary-color:#1A1918;
 $dark-secondary-color: #40454B;
+$primary-text-color: #FFFFFF;
 
 *{
     margin: 0;
 }
+h1{
+    font-family: 'Poiret One', cursive;
+    color: $primary-text-color;
+    font-weight: 100;
+    position: relative;
+    text-align: center;
+    top: 20%;
+
+    &::after{
+        content: '';
+        border-bottom: 1px solid $primary-text-color;
+        display: block;
+        margin: auto;
+        width: 60%;
+    }
+}
 body{
     overflow-x: hidden;
-    background: $dark-primary-color;
 }
 /* Head Elements*/
 ul, li, a{
@@ -17,6 +33,46 @@ ul, li, a{
     text-decoration: none;
     margin: 0;
     padding: 0;
+}
+nav{
+    z-index: 5;
+    position: fixed;
+    align-items: center;
+    display: flex;
+    left: 2.5%;
+    top: 2.5%;
+    width: 20%;
+    border: 2px solid $primary-text-color;
+    border-radius: 20px;
+    ul{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: auto;
+
+
+        background: darken($primary-text-color, 30%)
+    }
+    li{
+        position: relative;
+        background: red;
+        width: 10%;
+        margin: 0 3%;
+        &::before{
+            content:'';
+            position: absolute;
+            border: 2px solid $primary-text-color;
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        a{
+            opacity: 0;
+        }
+    }
 }
 /* Classes */
 
@@ -167,22 +223,11 @@ ul, li, a{
     color: white;
 }
 .hero{
-    nav{
-        height: 100%;
-        width: 10%;
-        position: absolute;
-        text-align: center;
-        a{
-            position: relative;
-            font-family: 'Roboto Slab', serif;
-            top: 50%;
-            margin: 5% 0;
-            color: white;
-            display: block;
-            &:active{
-                content: '→';
-            }
-        }
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #252c36, #254e5b, #257270, #529571, #9bb369);
+    h1{
+        font-size: 5em;
     }
     img{
         display: block;

@@ -2,52 +2,34 @@
 
 {% block title %}Index{% endblock %}
 {% block main %}
-<header class='hero'>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Portfolio</a>
-            <a href="#">Contact</a>
-        </nav>
-        <div>  </div>
-        <img src="static/category/books.jpg" alt="">
-</header>
-
-<!-- First post -->
+<section class="section">
+    <header class="hero">
+        <h1>Austin Bakker</h1>
 
 
+    </header>
+</section>
 
-<!-- Display All categorys -->
-<ul class='category-container'>
-    {% for category in categorys %}
-        <li class='category-wrapper'>
-            <content> <h1>{{category.name}}</h1> </content>
-            <figure>
-                <img src="static/{{category.image}}" alt="">
-            </figure>
+<section class='section'>
+    <ul class="project">
+        {% for project in projects %}
+        <li>
+            <!-- display project name -->
+            <!-- display project context -->
+            <div>
+                <span>
+                    <h1>{{project.name}}</h1>
+                    <content>
+                        {{project.content}}
+                    </content>
+                    <a href="{{url_for('project', id=project.id)}}">Lees meer</a>
+                </span>
 
+            </div>
+            <!-- display project image -->
+            <img src="{{project.image()}}" alt="">
         </li>
-    {% endfor %}
-</ul>
-
-<ul class='project'>
-    {% for project in projects %}
-    <li>
-        <!-- display project name -->
-        <!-- display project context -->
-        <div>
-            <span>
-                <h1>{{project.name}}</h1>
-                <content>
-                    {{project.content}}
-                </content>
-                <a href="{{url_for('project', id=project.id)}}">Lees meer</a>
-            </span>
-
-        </div>
-        <!-- display project image -->
-        <img src="{{project.image()}}" alt="">
-
-    </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+</section>
 {% endblock %}

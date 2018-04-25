@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
     <head>
         <meta charset="utf-8">
+
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/css/styles.css') }}">
+        <!-- Website Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Poiret+One|Raleway" rel="stylesheet">
+        <!-- end website fonts -->
+
+<!-- fullscreen  -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/css/jquery.fullPage.css') }}" />
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='styles/js/jquery.fullPage.js') }}"></script>
+<!-- end fullscreen -->
+
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118156253-1"></script>
         <script>
@@ -13,6 +25,12 @@
                 gtag('js', new Date());
 
             gtag('config', 'UA-118156253-1');
+        </script>
+
+        <script type="text/javascript">
+                $(document).ready(function() {
+            	        $('#fullpage').fullpage();
+                });
         </script>
 
         <title>{% block title %}{% endblock %} | Austin's Blog</title>
@@ -35,16 +53,22 @@
         {% endif %}
     {% endwith %}
 {% endblock %}
+<nav>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+</nav>
+
+</ul>
+<div id="fullpage">
     {% block main %}
-    <nav>
-        <ul>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-        </ul>
-    </nav>
+
     {% endblock %}
-    <footer></footer>
+    <!-- <footer class="section"></footer> -->
+</div>
+
+
     </body>
 </html>
