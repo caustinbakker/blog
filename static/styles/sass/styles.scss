@@ -8,24 +8,17 @@ $primary-text-color: #FFFFFF;
 *{
     margin: 0;
 }
-h1{
-    font-family: 'Poiret One', cursive;
+h1, h2, h3{
+    font-family: 'Raleway', sans-serif;
     color: $primary-text-color;
     font-weight: 100;
     position: relative;
     text-align: center;
     top: 20%;
-
-    &::after{
-        content: '';
-        border-bottom: 1px solid $primary-text-color;
-        display: block;
-        margin: auto;
-        width: 60%;
-    }
 }
 body{
     overflow-x: hidden;
+
 }
 /* Head Elements*/
 ul, li, a{
@@ -37,31 +30,22 @@ ul, li, a{
 nav{
     z-index: 5;
     position: fixed;
-    left: 5%;
-    top: 5%;
-    width: 20vw;
+    top: 2.5%;
+    width: 100%;
     height: 2vh;
     display: flex;
     align-items: center;
-    span{
-        position: relative;
-        display: block;
-        background: $primary-text-color;
-        border: 2px solid $primary-text-color;
-        border-radius: 10px;
-        z-index: 1;
-        padding: 0 4%;
-        left: 5%;
-    }
+    justify-content: center;
     ul{
         align-items: center;
         display: flex;
         justify-content: space-evenly;
-        width: 100%;
+        width: 25%;
         height: 100%;
-        border: 2px solid $primary-text-color;
+        border: 3px solid $dark-secondary-color;
         border-radius: 20px;
         z-index: 2;
+        background: $primary-color;
     }
     a{
         position: relative;
@@ -257,9 +241,19 @@ nav{
 .hero{
     width: 100vw;
     height: 100vh;
-    background-image: linear-gradient(to bottom, #252c36, #254e5b, #257270, #529571, #9bb369);
+    background: #c94b4b;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #4b134f, #c94b4b);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     h1{
         font-size: 5em;
+        &::after{
+            content: '';
+            border-bottom: 1px solid $primary-text-color;
+            display: block;
+            margin: auto;
+            width: 60%;
+        }
     }
     img{
         display: block;
@@ -281,26 +275,38 @@ nav{
     flex-flow: row wrap;
     flex-grow: 1;
     width: 100%;
-    justify-content: center;
-    align-content:center;
-    margin-top: 3%;
+    height: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 3%;
     transition: all 2s;
+    background: #c94b4b;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #4b134f, #c94b4b);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     li{
         position: relative;
         flex-grow: 2;
         height: 80vh;
-        min-width: 24.8%;
-        margin: 0.1%;
         overflow: hidden;
         text-align: center;
         flex-basis: 25%;
         background: lighten($dark-primary-color, 10%);
         &:hover{
             img{
-                transform: scale(1.3);
+                transform: scale(1.1);
+                filter: grayscale(0%);
+            }
+            h2{
+                transform: scale(5);
+                opacity: 0;
             }
             content{
                 opacity: 1;
+                transform: scale(1);
+                &::before{
+
+                    opacity: 0.8;
+                }
             }
         }
     }
@@ -308,55 +314,36 @@ nav{
         transition: all 2s;
         height: 100%;
         width: 100%;
-        display: inline-block;
+        display: block;
         object-fit: cover;
         z-index: -2;
-    }
-    div{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        display: block;
-        transition-delay: 2s;
-        &::before {
-            content: "";
-            transition: all 2s ease-in;
-            position: absolute;
-            left: 0;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-            background: $dark-primary-color;
-            opacity: 0;
-        }
-        &:hover::before{
-            opacity: 0.5;
-        }
+        filter: grayscale(100%);
     }
     span{
+        z-index: 1;
         display: block;
         position: absolute;
         height: 100%;
         width: 100%;
-        margin: 2% 0 0 0;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        h1{
-            font-family: 'Roboto', sans-serif;
-            font-weight: 900;
+        h2{
+            transition: all 1s;
+            width: 100%;
+            font-size: 700%;
+            top: 0;
         }
         content{
+            transition: all 1s;
             position: relative;
             padding: 2%;
-            display: block;
-            margin-top: 10%;
-            margin-bottom: 30%;
             font-family: 'Lato', sans-serif;
             font-weight: 100;
             opacity: 0;
+            width: 70%;
+            transform: scale(2);
             &::before{
                 content: "";
                 background: white;
@@ -367,19 +354,18 @@ nav{
                 height: 100%;
                 z-index: -1;
                 opacity: inherit;
+
             }
         }
-        a{
-            position: relative;
-            display: block;
-            height: 2vw;
-            width: 20vw;
-            margin: 0 auto 0 auto 5%;
-            border: solid 1px black;
-            border-radius: 2px;
-            background: $primary-color;
-            color: white;
-        }
+    }
+    a{
+        position: absolute;
+        display: block;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 5;
     }
 
 }
@@ -493,7 +479,26 @@ footer{
 #csrf_token{
     display: none;
 }
-
+#readmore{
+    position: absolute;
+    width: 100%;
+    height: 5%;
+    z-index: 10;
+    top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $primary-text-color;
+        width: 15%;
+        height: 100%;
+        border: 2px solid $dark-primary-color;
+    }
+}
 // websit scrollbar
 // ::-webkit-scrollbar {
 //     position: absolute;

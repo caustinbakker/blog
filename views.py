@@ -9,7 +9,10 @@ import forms
 import models
 
 
-@app.route('/', methods=('GET', 'POST'))
+from partials.requests import *
+
+
+@app.route('/', methods=['GET', 'POST'])
 def main():
     """Display main webpage."""
     return render_template('main.html',
@@ -31,7 +34,6 @@ def category(category=None):
 @app.route('/admin', methods=['GET', 'POST'])
 def admin_panel():
     """Display admin panel."""
-    flash('Hello world!', 'success')
     return render_template('admin_panel.html',
                            categorys=models.Category,
                            posts=models.Post,
@@ -83,8 +85,6 @@ def project(id):
     return render_template('project.html',
                            project=models.Project.get(models.Project.id == id)
                            )
-
-from partials.requests import *
 
 
 def save_file(file, model, form, project_id):

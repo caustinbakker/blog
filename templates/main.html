@@ -5,29 +5,27 @@
 <section class="section">
     <header class="hero">
         <h1>Austin Bakker</h1>
-
-
     </header>
 </section>
 
 <section class='section'>
+    <div id='readmore'> <a  href="#">More projects</a></div>
+
     <ul class="project">
-        {% for project in projects %}
+        {% for project in projects.select() %}
         <li>
             <!-- display project name -->
             <!-- display project context -->
-            <div>
                 <span>
-                    <h1>{{project.name}}</h1>
+                    <h2>{{project.name.upper()}}</h2>
                     <content>
                         {{project.content}}
                     </content>
-                    <a href="{{url_for('project', id=project.id)}}">Lees meer</a>
                 </span>
-
-            </div>
             <!-- display project image -->
             <img src="{{project.image()}}" alt="">
+            <!-- link for post -->
+            <a href="#"></a>
         </li>
         {% endfor %}
     </ul>

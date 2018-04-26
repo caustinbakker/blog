@@ -11,6 +11,7 @@ class Project(Model):
 
     name = CharField(unique=True)
     content = CharField()
+    image = CharField(default='Null')
 
     class Meta(object):
         """Select database."""
