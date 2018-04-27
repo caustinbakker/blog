@@ -332,8 +332,9 @@ background: linear-gradient(to bottom, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, 
         h2{
             transition: all 1s;
             width: 100%;
-            font-size: 700%;
+            font-size: 5vw;
             top: 0;
+            user-select: none;
         }
         content{
             transition: all 1s;
@@ -472,6 +473,9 @@ background: linear-gradient(to bottom, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, 
 //     }
 // }
 //
+// .fp-tableCell{
+//     display: flex;
+// }
 footer{
     height: 20vw;
 }
@@ -479,25 +483,30 @@ footer{
 #csrf_token{
     display: none;
 }
-#readmore{
+#More_projects{
     position: absolute;
-    width: 100%;
+    width: 40vw;
     height: 5%;
     z-index: 10;
-    top: 10%;
+    top: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    a{
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: $primary-text-color;
-        width: 15%;
-        height: 100%;
-        border: 2px solid $dark-primary-color;
-    }
+    background: $primary-text-color;
+    left: 0;
+    right: 0;
+    margin: auto;
+    box-shadow: 0 20 80px 10px $dark-primary-color;
+    // a{
+    //     position: relative;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     background: $primary-text-color;
+    //     width: 15%;
+    //     height: 100%;
+    //     border: 2px solid $dark-primary-color;
+    // }
 }
 // websit scrollbar
 // ::-webkit-scrollbar {

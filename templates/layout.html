@@ -4,7 +4,7 @@
         <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
         <meta charset="utf-8">
 
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/css/styles.css') }}">
+
         <!-- Website Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One|Raleway" rel="stylesheet">
@@ -34,7 +34,7 @@
             	        $('#fullpage').fullpage();
                 });
         </script>
-
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/css/styles.css') }}">
         <title>{% block title %}{% endblock %} | Austin's Blog</title>
     </head>
     <body>

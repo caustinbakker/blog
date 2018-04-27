@@ -1,7 +1,7 @@
 """Main section for all views."""
 from app import app
 from flask import Flask, render_template, url_for, redirect, flash, request
-from peewee import DoesNotExist
+from peewee import *
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 import os
 
@@ -15,9 +15,17 @@ from partials.requests import *
 @app.route('/', methods=['GET', 'POST'])
 def main():
     """Display main webpage."""
+    pp = models.ProjectPost
+    p = models.Post
+    posts = (p.select(p.category, p.name, p.content, p.image, p.created_date) |
+             (pp.select(pp.project_id,
+                        pp.name, pp.content, pp.image,
+                        pp.created_date).order_by(pp.created_date.desc())))
     return render_template('main.html',
                            categorys=models.Category,
-                           projects=models.Project)
+                           projects=models.Project,
+                           posts=posts
+                           )
 
 
 @app.route('/<category>')

@@ -9,9 +9,10 @@
 </section>
 
 <section class='section'>
-    <div id='readmore'> <a  href="#">More projects</a></div>
+
 
     <ul class="project">
+        <a id='More_projects' href="#">More projects</a>
         {% for project in projects.select() %}
         <li>
             <!-- display project name -->
@@ -28,9 +29,28 @@
                 <img src="{{project.image()}}" alt="">
                 <!-- link for post -->
                 <a href="#"></a>
-            {% endif %}     
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
 </section>
+
+        <section class='section'>
+            {{ posts.get().name }}
+            {{ posts.get().image}}
+            {{ posts.get().created_date}}
+        </section>
+
+        {% for post in posts %}
+        <section class='section'>
+            {{ post.name }}
+            {{ post.created_date}}
+            {{post.image}}
+            {{post.created_date}}
+        </section>
+        {% endfor %}
+
+
+
+
 {% endblock %}

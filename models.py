@@ -65,6 +65,7 @@ class Post(Model):
     name = CharField()
     content = CharField()
     image = CharField(default='Null')
+    category = CharField(default='Null')
     created_date = DateTimeField(default=datetime.datetime.today())
 
     class Meta(object):
@@ -77,4 +78,5 @@ def initialize():
     """Create tables."""
     db.connect()
     db.create_tables([Category, Post, Project, ProjectPost], safe=True)
+    # Post.create(name='123',content='123')
     db.close()
