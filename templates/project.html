@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block main %}
 {{project.name}}
-<ul>
+<section class='section'>
     {% for post in project.get_posts() %}
     <li class="{{ loop.cycle('post_1', 'post_2') }}">
         <a name='{{post.id}}'></a>
@@ -16,7 +16,7 @@
         </figure>
     </li>
     {% endfor %}
-</ul>
+</section>
 
 
 {% endblock %}
