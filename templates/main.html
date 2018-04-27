@@ -28,7 +28,7 @@
             {% if project.image() %}
                 <img src="{{project.image()}}" alt="">
                 <!-- link for post -->
-                <a href="#"></a>
+                <a href="{{url_for('project', id=project.id)}}"></a>
             {% endif %}
         </li>
         {% endfor %}
