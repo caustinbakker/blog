@@ -23,9 +23,12 @@
                     </content>
                 </span>
             <!-- display project image -->
-            <img src="{{project.image()}}" alt="">
-            <!-- link for post -->
-            <a href="#"></a>
+
+            {% if project.image() %}
+                <img src="{{project.image()}}" alt="">
+                <!-- link for post -->
+                <a href="#"></a>
+            {% endif %}     
         </li>
         {% endfor %}
     </ul>
