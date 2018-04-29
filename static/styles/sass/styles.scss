@@ -10,7 +10,6 @@ $primary-text-color: #FFFFFF;
 }
 h1, h2, h3{
     font-family: 'Raleway', sans-serif;
-    color: $primary-text-color;
     font-weight: 100;
     position: relative;
     text-align: center;
@@ -213,7 +212,7 @@ nav{
     }
     figure{
         flex-basis: 70vw;
-        height: 100%;
+        height: 39.38vw;
         display: flex;
         &:hover{
             flex-grow: 20;
