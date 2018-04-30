@@ -13,7 +13,7 @@ h1, h2, h3{
     font-weight: 100;
     position: relative;
     text-align: center;
-    top: 20%;
+    overflow: hidden;
 }
 body{
     overflow-x: hidden;
@@ -177,72 +177,10 @@ nav{
     }
 
 }
-
-// post
-
-.post{
-    width: 100%;
-    height: 39.38vw;
-    position: relative;
-    display: flex;
-    justify-content:flex-start;
-    align-content:center;
-    align-items: center;
-    margin: 2% 0;
-    article{
-        position: relative;
-        width: 40vw;
-        flex-grow: 0.5;
-        margin: 5% 5%;
-        top: -5%;
-        font-size: 1.2rem;
-        font-family: 'Lato', sans-serif;
-        font-weight: 100;
-        h1{
-        position: relative;
-        width: 40%;
-        font-size: 4rem;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 900;
-        line-height: 75%;
-        margin: 0 0 8% 0;
-        z-index: 5;
-        }
-
-    }
-    figure{
-        flex-basis: 70vw;
-        height: 39.38vw;
-        display: flex;
-        &:hover{
-            flex-grow: 20;
-        }
-    }
-    img{
-        object-fit: cover;
-        width: 100%;
-    }
-    a{
-        position: absolute;
-        top: 0;
-    }
-}
-.post_1{
-    @extend .post;
-    background: white;
-    color: $dark-secondary-color;
-}
-.post_2{
-    @extend .post;
-    background: $dark-secondary-color;
-    color: white;
-}
 .hero{
     width: 100vw;
     height: 100vh;
-    background: #c94b4b;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to bottom, #4b134f, #c94b4b);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to bottom, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to bottom, #4b134f, #c94b4b);
 
     h1{
         font-size: 5em;
@@ -267,28 +205,98 @@ background: linear-gradient(to bottom, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, 
     }
 }
 
-.project{
-    background: $dark-primary-color;
-    position: relative;
-    display: flex;
-    flex-flow: row wrap;
-    flex-grow: 1;
+// post
+
+.post{
     width: 100%;
     height: 100%;
-    justify-content: space-evenly;
+    position: relative;
+    display: flex;
+    justify-content:flex-start;
     align-items: center;
-    padding-top: 3%;
+    background: $primary-text-color;
+    color: $dark-secondary-color;
+    article{
+        background: inherit;
+        position: absolute;
+        opacity: 0.7;
+        height: 100%;
+        width: 25%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        padding: 0 2%;
+        transition: all 3s;
+        flex-grow: 1;
+        &:hover{
+            opacity: 1;
+            box-shadow: 0 0 50px 20px #212121;
+        }
+        h3{
+        font-size: 4rem;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 900;
+        width: 100%;
+        margin-top: 15%;
+        }
+        p{
+        font-size: 1.2rem;
+        font-family: 'Lato', sans-serif;
+        font-weight: 100;
+        flex-grow: .4;
+        }
+
+    }
+    figure{
+        width: 100vw;
+        // height: 39.38vw;
+        height: 100vh;
+        display: flex;
+        &:hover{
+            flex-grow: 20;
+        }
+    }
+    img{
+        object-fit: cover;
+        width: 100%;
+    }
+    footer{
+        padding: 1% 0;
+        border-top: 1px solid ;
+        border-bottom: 1px solid ;
+        text-align: center;
+        color: inherit;
+        margin-bottom: 10%;
+    }
+}
+.post_1{
+    @extend .post;
+    background: white;
+    color: $dark-secondary-color;
+}
+.post_2{
+    @extend .post;
+    background: $dark-secondary-color;
+    color: white;
+}
+
+.project{
+    position: relative;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background: $dark-primary-color;
+    flex-flow: row wrap;
+    // align-items: stretch;
+    justify-content: flex-start;
     transition: all 2s;
-    background: #c94b4b;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #4b134f, #c94b4b);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to top, #4b134f, #c94b4b);
     li{
+        flex-grow: 1;
+        flex-basis: 50%;
         position: relative;
-        flex-grow: 2;
-        height: 80vh;
         overflow: hidden;
         text-align: center;
-        flex-basis: 25%;
         background: lighten($dark-primary-color, 10%);
         &:hover{
             img{
@@ -299,7 +307,7 @@ background: linear-gradient(to bottom, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, 
                 transform: scale(5);
                 opacity: 0;
             }
-            content{
+            p{
                 opacity: 1;
                 transform: scale(1);
                 &::before{
@@ -335,7 +343,7 @@ background: linear-gradient(to bottom, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, 
             top: 0;
             user-select: none;
         }
-        content{
+        p{
             transition: all 1s;
             position: relative;
             padding: 2%;
@@ -475,9 +483,6 @@ background: linear-gradient(to bottom, #4b134f, #c94b4b); /* W3C, IE 10+/ Edge, 
 // .fp-tableCell{
 //     display: flex;
 // }
-footer{
-    height: 20vw;
-}
 /* Id's */
 #csrf_token{
     display: none;
@@ -530,3 +535,16 @@ footer{
 // ::-webkit-scrollbar-thumb:hover {
 //     background: #555;
 // }
+
+
+
+
+// media querys
+
+@media only screen and (max-width: 920) {
+    .post_1{
+        article{
+            width: 100%;
+        }
+    }
+}

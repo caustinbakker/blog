@@ -3,11 +3,20 @@ from app import app
 from flask import Flask, render_template, url_for, redirect, flash, request
 from peewee import *
 from flask_uploads import UploadSet, IMAGES, configure_uploads
+from datetime import datetime
 import os
 
 import forms
 import models
 
+
+def datetimeformat(value, format='%d/%m/%Y'):
+    """Filter to convert str to datetime."""
+    if isinstance(value, str) is True:
+        value = datetime.strptime(value, '%Y-%m-%d %H:%M:%S.%f')
+    return value.strftime(format)
+
+app.jinja_env.filters['datetimeformat'] = datetimeformat
 
 from partials.requests import *
 

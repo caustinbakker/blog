@@ -2,6 +2,7 @@
 
 {% block title %}Index{% endblock %}
 {% block main %}
+
 <section class="section">
     <header class="hero">
         <h1>Austin Bakker</h1>
@@ -19,38 +20,48 @@
             <!-- display project context -->
                 <span>
                     <h2>{{project.name.upper()}}</h2>
-                    <content>
+                    <p>
                         {{project.content}}
-                    </content>
+                    </p>
                 </span>
             <!-- display project image -->
 
-            {% if project.image() %}
-                <img src="{{project.image()}}" alt="">
+                <img src="{{project.image()}}" alt="Image from {{project.name}}">
                 <!-- link for post -->
                 <a href="{{url_for('project', id=project.id)}}"></a>
-            {% endif %}
         </li>
         {% endfor %}
     </ul>
 </section>
 
-        <section class='section'>
-            {{ posts.get().name }}
-            {{ posts.get().image}}
-            {{ posts.get().created_date}}
-        </section>
+<section class='section'>
+    <li class="post_1">
+        <a name='{{posts.id}}'></a>
+        <article>
+            <h3>{{posts.get().name}}</h3>
+            <p>{{posts.get().content}}</p>
+            <footer>{{posts.get().created_date|datetimeformat}}</footer>
+        </article>
+        <figure>
+            <img src="{{posts.get().image}}" alt="">
+        </figure>
+    </li>
+</section>
 
-        {% for post in posts %}
-        <section class='section'>
-            {{ post.name }}
-            {{ post.created_date}}
-            {{post.image}}
-            {{post.created_date}}
-        </section>
-        {% endfor %}
-
-
-
+{% for post in posts[1:] %}
+<section class='section'>
+    <li class="{{loop.cycle('post_2', 'post_1') }}">
+        <a name='{{post.id}}'></a>
+        <article>
+            <h3>{{post.name}}</h3>
+            <p>{{post.content}}</p>
+            <footer>{{posts.get().created_date|datetimeformat}}</footer>
+        </article>
+        <figure>
+            <img src="{{post.image}}" alt="">
+        </figure>
+    </li>
+</section>
+{% endfor %}
 
 {% endblock %}
