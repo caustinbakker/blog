@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
+{%block title%} {{project.name}} {% endblock %}
 {% block main %}
-{{project.name}}
+
 
     {% for post in project.get_posts() %}
     <section class='section'>
@@ -11,10 +12,10 @@
                     {{post.name}}
                 </h3>
                 <p>{{post.content}}</p>
-                
+
             </article>
             <figure>
-                <img src="{{post.image}}" alt="">
+                <img src="{{post.image}}" alt="image from post {{post.name}}">
             </figure>
         </li>
     </section>

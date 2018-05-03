@@ -17,8 +17,6 @@ configure_uploads(app, photos)
 from views import *
 
 
-app.jinja_env.cache = {}
-
 if __name__ == '__main__':
     models.initialize()
     print('=' * 100)
