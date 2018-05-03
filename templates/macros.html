@@ -39,3 +39,23 @@
     </a>
 </ul>
 {% endmacro %}
+
+{% macro ppost(posts, index=[]) %}
+
+    {% for post in posts %}
+    <section class='section'>
+        <li class="{{loop.cycle('post_1', 'post_2') }}">
+            <a name='{{post.id}}'></a>
+            <article>
+                <h2>{{post.name}}</h2>
+                <p>{{post.content}}</p>
+                <footer>{{posts.get().created_date|datetimeformat}}</footer>
+            </article>
+            <figure>
+                    <img src="{{post.image}}" alt="Image from {{post.name}}">
+            </figure>
+        </li>
+    </section>
+    {% endfor %}
+
+{% endmacro %}

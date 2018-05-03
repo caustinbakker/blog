@@ -2,7 +2,7 @@
 
 {% block title %}Home{% endblock %}
 {% block main %}
-
+{% from "macros.html" import ppost %}
 <section class="section">
     <header class="hero">
         <h1>Austin Bakker</h1>
@@ -10,7 +10,6 @@
 </section>
 
 <section class='section'>
-
 
     <ul class="project">
         <a id='More_projects' href="#">More projects</a>
@@ -25,43 +24,17 @@
                     </p>
                 </span>
             <!-- display project image -->
-
-                <img src="{{project.image()}}" alt="Image from {{project.name}}">
-                <!-- link for post -->
-                <a href="{{url_for('project', id=project.id)}}"></a>
+                {%if project.image() %}
+                    <img src="{{project.image()}}" alt="Image from {{project.name}}">
+                    <!-- link for post -->
+                    <a href="{{url_for('project', id=project.id)}}"></a>
+                {% endif %}
         </li>
         {% endfor %}
     </ul>
+
 </section>
 
-<section class='section'>
-    <li class="post_1">
-        <a name='{{posts.id}}'></a>
-        <article>
-            <h3>{{posts.get().name}}</h3>
-            <p>{{posts.get().content}}</p>
-            <footer>{{posts.get().created_date|datetimeformat}}</footer>
-        </article>
-        <figure>
-            <img src="{{posts.get().image}}" alt="">
-        </figure>
-    </li>
-</section>
-
-{% for post in posts[1:] %}
-<section class='section'>
-    <li class="{{loop.cycle('post_2', 'post_1') }}">
-        <a name='{{post.id}}'></a>
-        <article>
-            <h3>{{post.name}}</h3>
-            <p>{{post.content}}</p>
-            <footer>{{posts.get().created_date|datetimeformat}}</footer>
-        </article>
-        <figure>
-            <img src="{{post.image}}" alt="">
-        </figure>
-    </li>
-</section>
-{% endfor %}
+{{ ppost(posts) }}
 
 {% endblock %}
