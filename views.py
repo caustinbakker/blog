@@ -116,7 +116,7 @@ def save_file(file, model, form, project_id):
     except Exception:
         pass
 
-    filepath = str(path + filename)
+    filepath = str(path + filename).lower()
     print(filepath)
     try:
         file.save(filepath)
