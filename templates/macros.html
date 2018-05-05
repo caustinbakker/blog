@@ -40,9 +40,9 @@
 </ul>
 {% endmacro %}
 
-{% macro ppost(posts, index=[]) %}
+{% macro ppost(posts) %}
 
-    {% for post in posts %}
+    {% for post in posts[1:] %}
     <section class='section'>
         <li class="{{loop.cycle('post_1', 'post_2') }}">
             <a name='{{post.id}}'></a>

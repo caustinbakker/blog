@@ -97,8 +97,10 @@ def delete_item(model, id, name):
 
 
 @app.route('/project/<id>')
-def project(id):
+def project(id=None):
     """Display Project."""
+    if id is '0':
+        return render_template('all_projects.html', projects=models.Project.select())
     return render_template('project.html',
                            project=models.Project.get(models.Project.id == id)
                            )

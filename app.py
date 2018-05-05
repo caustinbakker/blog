@@ -3,7 +3,6 @@ from flask import Flask
 from peewee import *
 from livereload import Server, shell
 from flask_uploads import UploadSet, IMAGES, configure_uploads
-from io import StringIO
 
 
 import models
