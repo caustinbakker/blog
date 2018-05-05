@@ -100,10 +100,17 @@ def delete_item(model, id, name):
 def project(id=None):
     """Display Project."""
     if id is '0':
-        return render_template('all_projects.html', projects=models.Project.select())
+        return render_template('all_projects.html',
+                               projects=models.Project.select())
     return render_template('project.html',
                            project=models.Project.get(models.Project.id == id)
                            )
+
+
+@app.route('/robots.txt')
+def robots():
+    """Display the robots.txt file."""
+    return render_template('robots.txt')
 
 
 def save_file(file, model, form, project_id):
