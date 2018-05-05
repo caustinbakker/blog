@@ -107,12 +107,6 @@ def project(id=None):
                            )
 
 
-@app.route('/robots.txt')
-def robots():
-    """Display the robots.txt file."""
-    return render_template('robots.txt')
-
-
 def save_file(file, model, form, project_id):
     """Save file."""
     if project_id is not None:
