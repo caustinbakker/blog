@@ -29,7 +29,7 @@
                 <h2>{{project.name.upper()}}</h2>
                 <!-- display project context -->
                 <p>{{project.content}}</p>
-                <button> <a href="url_for('project', id {{project.id}}">More about the {{project.name}} project</a> </button>
+                <button> <a href="url_for('project', id=project.id)">More about the {{project.name}} project</a> </button>
             </article>
                 <!-- display project image -->
                 {%if project.image() %}
