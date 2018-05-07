@@ -1,0 +1,114 @@
+.project{
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 60vh;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    li{
+        align-self: stretch;
+        flex-basis: 50%;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        &:hover{
+            h2{
+                box-shadow: 5px 10px 20px 4px black;
+                transition-delay: 0ms;
+                flex-grow: 1;
+                font-size: 5em;
+                transition: font-size 300ms;
+            }
+            p{
+                transition-delay: 1000ms;
+                flex-grow: 3;
+            }
+            button{
+                transition-delay: 700ms;
+                flex-grow: 1;
+                box-shadow: 5px 10px 20px 4px black;
+            }
+            img{
+                filter: grayscale(100%);
+            }
+        }
+    }
+    img{
+        height: 100%;
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        z-index: -2;
+        transition: all 300ms;
+    }
+
+}
+.overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    h2, p, button{
+        height: 0;
+        position: relative;
+        transition: flex-grow 300ms;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        z-index: 1;
+        width: 100%;
+        color: $secondary-text-color;
+        &::before{
+            content: '';
+            background: $primary-text-color;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: .9;
+        }
+    }
+    h2, button{
+        transition-delay: 900ms;
+
+        &::before{
+            opacity: 1;
+        }
+    }
+    h2{
+        font-size: 10em;
+        transition: font-size 300ms;
+    }
+    p{
+        transition-delay: 0;
+    }
+    button{
+        transition-delay: 300ms;
+        border: none;
+        a{
+            transition: all 300ms;
+            padding: 3%;
+            color: $secondary-text-color;
+            border: .08em solid lighten($primary-text-color, 20%);
+            &:hover{
+                border-color: darken($primary-text-color, 20%);
+                transition: border-radius 900ms;
+                border-radius: 1em;
+
+            }
+        }
+
+    }
+
+}
+.all_projects{
+    height: 90vh;
+    @extend .project;
+}

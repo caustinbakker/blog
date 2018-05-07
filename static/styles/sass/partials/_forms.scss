@@ -1,0 +1,26 @@
+.form-create{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    height: 100vh;
+
+    input, button{
+        position: relative;
+        width: 60%;
+        height: 100%;
+        border-radius: 10px;
+        background: lighten($dark-primary-color, 20%);
+        border: none;
+    }
+    div, button{
+        height: 10%;
+        margin: 2% 0;
+        width: 100%;
+    }
+}
+
+
+#csrf_token{
+    display: none;
+}

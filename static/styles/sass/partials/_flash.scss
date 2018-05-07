@@ -1,0 +1,28 @@
+.flashes{
+    li {
+        label{
+            display: block;
+            div{
+                color: lighten($primary-color, 30%);
+                background: $primary-color;
+                text-align: center;
+                font-size: 1.5rem;
+                width: 100%;
+                height: 100%;
+            }
+            input{
+                position: absolute;
+                opacity: 0;
+            }
+            input:checked ~ div,{
+                height: 0;
+                opacity: 0;
+            }
+        }
+    }
+    .success{
+        background: green;
+        color: darken(green, 10%);
+    }
+
+}

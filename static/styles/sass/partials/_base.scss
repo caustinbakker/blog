@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+}
+h1, h2, h3{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+body{
+    overflow-x: hidden;
+
+}
+/* Head Elements*/
+ul, li, a{
+    list-style-type: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}

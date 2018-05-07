@@ -43,7 +43,7 @@
 {% macro ppost(posts) %}
 
     {% for post in posts[1:] %}
-    <section class='section'>
+    <!-- <section class='section'> -->
         <li class="{{loop.cycle('post_1', 'post_2') }}">
             <a name='{{post.id}}'></a>
             <article>
@@ -55,7 +55,7 @@
                     <img src="{{post.image}}" alt="Image from {{post.name}}">
             </figure>
         </li>
-    </section>
+    <!-- </section> -->
     {% endfor %}
 
 {% endmacro %}

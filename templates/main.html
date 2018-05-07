@@ -3,7 +3,8 @@
 {% block title %}Home{% endblock %}
 {% block main %}
 {% from "macros.html" import ppost %}
-<section class='section'>
+<!-- <section class='section fp-auto-height'> -->
+
 <ul id='title'>
     <p>Hello my name is</p>
     <h1>Austin</h1>
@@ -19,6 +20,11 @@
         </ul>
     </nav>
 </ul>
+<!-- </section> -->
+<!-- <section class='section fp-auto-height'> -->
+<header class='header_title'>
+    <h1>Projects</h1>
+</header>
 
     <ul class="project">
         {% for project in projects.select() %}
@@ -39,12 +45,13 @@
 
     </ul>
 <!-- <a id='More_projects' href="#">More projects</a> -->
-</section>
-
-
+<!-- </section> -->
+<header class='header_title'>
+    <h1>Posts</h1>
+</header>
 {% for post in posts[:1] %}
-<section class='section' id='blog_posts'>
-    <li class="post_2">
+<!-- <section class='section'> -->
+    <li class="post_2" anchor='blog_posts'>
         <a name='{{post.id}}'></a>
         <article>
             <h2>{{post.name}}</h2>
@@ -55,7 +62,7 @@
                 <img src="{{post.image}}" alt="Image from {{post.name}}">
         </figure>
     </li>
-</section>
+<!-- </section> -->
 {% endfor %}
 
 {{ ppost(posts) }}

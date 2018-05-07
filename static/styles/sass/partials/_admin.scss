@@ -1,0 +1,43 @@
+.admin_item_list{
+    position: relative;
+    display: block;
+    margin: .5% 0;
+    h4{
+        display: inline-block;
+        width: 10%;
+        background: white;
+        color: $primary-color;
+        a{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+        }
+    }
+    a{
+        border: none;
+        position: absolute;
+        display: inline-block;
+        width: .5%;
+        height: 100%;
+        background: red;
+        transition: all 2s;
+
+        color: red;
+        overflow: hidden;
+        &:hover{
+            width: 5%;
+            color: darken(red, 30%);
+        }
+        &:active{
+            background: green;
+        }
+    }
+    & + a{
+        display: inline-block;
+        width: 10%;
+        background: green;
+        color: red;
+
+    }
+}
