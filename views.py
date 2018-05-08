@@ -5,9 +5,12 @@ from peewee import *
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from datetime import datetime
 import os
+from flask_login import LoginManager, login_user
 
 import forms
 import models
+
+password = 'password'
 
 
 def datetimeformat(value, format='%d/%m/%Y'):
@@ -49,7 +52,7 @@ def category(category=None):
 
 
 @app.route('/admin', methods=['GET', 'POST'])
-def admin_panel():
+def admin():
     """Display admin panel."""
     return render_template('admin_panel.html',
                            categorys=models.Category,
@@ -105,6 +108,18 @@ def project(id=None):
     return render_template('project.html',
                            project=models.Project.get(models.Project.id == id)
                            )
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """Login screen."""
+    form = forms.Login()
+    if form.validate_on_submit():
+        if (password == form.password.data):
+            return redirect(url_for('admin'))
+        else:
+            flash('Login failed!')
+    return render_template('login.html', form=form)
 
 
 def save_file(file, model, form, project_id):

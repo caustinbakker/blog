@@ -31,3 +31,9 @@ class ProjectPost(FlaskForm):
     name = StringField('Post Name', validators=[DataRequired()])
     content = StringField('Content', validators=[DataRequired()])
     image = FileField('image', validators=[DataRequired()])
+
+
+class Login(FlaskForm):
+    """Login form."""
+
+    password = StringField('Access code', validators=[DataRequired()])
