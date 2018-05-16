@@ -9,7 +9,7 @@ import datetime
 #                    passwd='qfIbhehmDHy9Ny6C')
 
 
-db = SqliteDatabase(blog.db)
+db = SqliteDatabase('blog.db')
 
 class Project(Model):
     """Projects."""
