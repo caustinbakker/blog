@@ -11,6 +11,7 @@ import datetime
 
 db = SqliteDatabase('blog.db')
 
+
 class Project(Model):
     """Projects."""
 
@@ -78,6 +79,7 @@ class Post(Model):
         """Return dates order_by."""
         return(Post.select()
                .order_by(Post.created_date.desc()))
+
 
 class Media(Model):
     """Media for post."""
