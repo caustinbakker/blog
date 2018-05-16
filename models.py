@@ -3,7 +3,10 @@ from peewee import *
 import datetime
 
 
-db = SqliteDatabase('partials/blog.db')
+db = MySQLDatabase('database',
+                   host='35.233.225.232',
+                   user='root',
+                   passwd='qfIbhehmDHy9Ny6C')
 
 
 class Project(Model):
@@ -11,7 +14,7 @@ class Project(Model):
 
     name = CharField(unique=True)
     content = CharField()
-    image = CharField(default='Null')
+    created_date = DateTimeField(default=datetime.datetime.today())
 
     class Meta(object):
         """Select database."""
@@ -31,41 +34,21 @@ class Project(Model):
         except Exception:
             pass
 
-
-class Category(Model):
-    """model for all avaible category's."""
-
-    name = CharField(unique=True)
-    image = CharField()
-
-    class Meta(object):
-        """Select database."""
-
-        database = db
-
-
-class ProjectPost(Model):
-    """Model for posts."""
-
-    project = ForeignKeyField(Project, backref='ProjectPost')
-    name = CharField()
-    content = CharField()
-    image = CharField(default='Null')
-    created_date = DateTimeField(default=datetime.datetime.today())
-
-    class Meta(object):
-        """Select database."""
-
-        database = db
+    def get_project_media(self):
+        """Grab image from get_posts."""
+        post = Post.select().where(Post.project_id == self).get()
+        return Media.select().where(Media.post_id == post).get().media
 
 
 class Post(Model):
     """Model for posts."""
 
+    project = ForeignKeyField(Project, backref='Post', null=True, default=None)
     name = CharField()
-    content = CharField()
-    image = CharField(default='Null')
-    category = CharField(default='Null')
+    content = TextField()
+    "Media Model"
+    "Category Model"
+    "Project Model"
     created_date = DateTimeField(default=datetime.datetime.today())
 
     class Meta(object):
@@ -73,10 +56,63 @@ class Post(Model):
 
         database = db
 
+    def get_category(self):
+        """Grab all the posts from project."""
+        return (Category.select()
+                .where(Category.post_id == self))
+
+    def get_media(self):
+        """Grab all media from this post."""
+        return (Media.select()
+                .where(Media.post_id == self))
+
+    def standalone():
+        """Return a model of all posts not bound to a project."""
+        return (Post.select()
+                .where(Post.project.is_null())
+                .order_by(Post.created_date.desc()))
+
+    def date():
+        """Return dates order_by."""
+        return(Post.select()
+               .order_by(Post.created_date.desc()))
+
+class Media(Model):
+    """Media for post."""
+
+    post = ForeignKeyField(Post, backref='Media')
+    media = CharField()
+
+    class Meta(object):
+        """Select database."""
+
+        database = db
+
+
+class Category(Model):
+    """model for all avaible category's."""
+
+    post = ForeignKeyField(Post, backref='Category')
+    name = CharField()
+
+    class Meta(object):
+        """Select database."""
+
+        database = db
+
+    def get_name():
+        """Get all category's without overlaping."""
+        categorys = Category.select()
+        categoryList = []
+        for category in categorys:
+            categoryName = category.name.title()
+            if categoryName not in categoryList:
+                categoryList.append(categoryName)
+        return categoryList
+
 
 def initialize():
     """Create tables."""
     db.connect()
-    db.create_tables([Category, Post, Project, ProjectPost], safe=True)
-    # Post.create(name='123',content='123')
+    db.create_tables([Category, Project, Post, Media], safe=True)
     db.close()

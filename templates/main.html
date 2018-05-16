@@ -3,68 +3,39 @@
 {% block title %}Home{% endblock %}
 {% block main %}
 {% from "macros.html" import ppost %}
-<!-- <section class='section fp-auto-height'> -->
 
-<ul id='title'>
-    <p>Hello my name is</p>
-    <h1>Austin</h1>
-    <p>You can see all my project's, and post's here</p>
-    <!-- nav bar -->
-    <nav>
-        <ul>
-            <!-- <a href="#"><h4>Home</h4></a> -->
-            <a href="{{url_for('project', id=0)}}"><h4>Project</h4></a>
-            <a href="#blog_posts"><h4>Blog Posts</h4></a>
-            <!-- <a href="#"><h4>About me</h4></a> -->
-            <!-- <a href="#"><h4>Contact</h4></a> -->
-        </ul>
-    </nav>
-</ul>
-<!-- </section> -->
-<!-- <section class='section fp-auto-height'> -->
-<header class='header_title'>
-    <h1>Projects</h1>
-</header>
-
-    <ul class="project">
-        {% for project in projects.select() %}
-        <li>
-            <article class="overlay">
-                <!-- display project name -->
-                <h2>{{project.name.upper()}}</h2>
-                <!-- display project context -->
-                <p>{{project.content}}</p>
-                <button> <a href="{{url_for('project', id=project.id)}}">More about the {{project.name}} project</a> </button>
-            </article>
-                <!-- display project image -->
-                {%if project.image() %}
-                    <img src="{{project.image()}}" alt="Image from {{project.name}}">
-                {% endif %}
-        </li>
-        {% endfor %}
-
+<header id='title'>
+    <ul id='title_head'>
+        <li><h1>Austin Bakker</h1></li>
+        <li><h2>Industele product ontwerper</h2></li>
+        <li><h2>Fullstack web dev</h2></li>
     </ul>
-<!-- <a id='More_projects' href="#">More projects</a> -->
-<!-- </section> -->
-<header class='header_title'>
-    <h1>Posts</h1>
+{{nav()}}
 </header>
-{% for post in posts[:1] %}
-<!-- <section class='section'> -->
-    <li class="post_2" anchor='blog_posts'>
-        <a name='{{post.id}}'></a>
-        <article>
-            <h2>{{post.name}}</h2>
-            <p>{{post.content}}</p>
-            <footer>{{posts.get().created_date|datetimeformat}}</footer>
-        </article>
+
+<ul>
+    <ul id='projects'>
+        {% for project in projects %}
+        <a href="#{{project.name}}"><li>{{project.name}}</li></a>
+        {% endfor %}
+    </ul>
+    {% for project in projects %}
+        {% if project.get_project_media() %}
+    <li class='{{loop.cycle('project_l','project_r')}}' id={{project.name}}>
+        <header class='project_loader'>
+            <h3>{{project.name}}</h3>
+            <p>{{project.content}}</p>
+        </header>
         <figure>
-                <img src="{{post.image}}" alt="Image from {{post.name}}">
+            <a href="{{url_for('project', id=project.id)}}"><img src="{{project.get_project_media()}}" alt=""></a>
         </figure>
+
+
+    {% endif %}
     </li>
-<!-- </section> -->
-{% endfor %}
-
-{{ ppost(posts) }}
-
+    {% endfor %}
+</ul>
+<footer></footer>
+<script type="text/javascript" src="{{ url_for('static', filename='styles/js/project_loader.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='styles/js/project_list.js') }}"></script>
 {% endblock %}

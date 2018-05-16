@@ -1,16 +1,17 @@
 *{
     margin: 0;
+    outline: none;
+    scroll-behavior: smooth;
 }
-h1, h2, h3{
-    font-family: 'Raleway', sans-serif;
-    font-weight: 100;
+h1, h2, h3, h4{
+    font-family: 'Roboto', sans-serif;
     position: relative;
-    text-align: center;
     overflow: hidden;
+    font-weight: 300;
 }
 body{
     overflow-x: hidden;
-
+    font-family: 'Raleway', sans-serif;
 }
 /* Head Elements*/
 ul, li, a{
@@ -18,4 +19,7 @@ ul, li, a{
     text-decoration: none;
     margin: 0;
     padding: 0;
+}
+footer{
+    height: 80vh;
 }

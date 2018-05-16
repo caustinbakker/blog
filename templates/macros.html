@@ -12,7 +12,7 @@
 {% macro admin_item_list(modellist) %}
 <ul>
     {% for modelname in modellist.select() %}
-    <li class='admin_item_list'>
+    <li>
         <!-- title -->
         <h4>{{modelname.name}}</h4>
         <!-- delete function -->
@@ -42,7 +42,7 @@
 
 {% macro ppost(posts) %}
 
-    {% for post in posts[1:] %}
+    {% for post in posts %}
     <!-- <section class='section'> -->
         <li class="{{loop.cycle('post_1', 'post_2') }}">
             <a name='{{post.id}}'></a>
@@ -58,4 +58,18 @@
     <!-- </section> -->
     {% endfor %}
 
+{% endmacro %}
+
+{% macro nav() %}
+
+<nav id='nav_bar'>
+    <ul>
+        <li> <a href="{{url_for('main')}}"><img src="static/logo.svg" alt=""></a></li>
+        <li><a href="{{url_for('blog')}}">Blog</a></li>
+        <li><a href="{{url_for('main')}}#projects">Projects</a></li>
+        <li><a href="{{url_for('about')}}">About me</a></li>
+    </ul>
+</nav>
+
+<script type="text/javascript" src="{{ url_for('static', filename='styles/js/nav_bar.js') }}"></script>
 {% endmacro %}

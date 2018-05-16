@@ -1,43 +1,48 @@
-.admin_item_list{
-    position: relative;
-    display: block;
-    margin: .5% 0;
-    h4{
-        display: inline-block;
-        width: 10%;
-        background: white;
-        color: $primary-color;
-        a{
-            position: absolute;
-            height: 100%;
+.admin_panel{
+    display: flex;
+    flex-direction: row;
+    margin: 5vw 5vh;
+    ul{
+        flex: 1 1 1%;
+        flex-grow: 0;
+    }
+
+}
+.post_standalone{
+    display: flex;
+    flex-direction: column;
+    li{
+        display: flex;
+        flex-direction: column;
+        margin: 1vw 2.5vh;
+        box-shadow: 0 2px 30px $first-text-color;
+        color: $first-text-color;
+    }
+    header{
+        display: flex;
+    }
+    figure{
+        width: 100%;
+        img{
+            object-fit: contain;
             width: 100%;
-            opacity: 0;
         }
     }
-    a{
-        border: none;
-        position: absolute;
-        display: inline-block;
-        width: .5%;
-        height: 100%;
-        background: red;
-        transition: all 2s;
-
-        color: red;
-        overflow: hidden;
-        &:hover{
-            width: 5%;
-            color: darken(red, 30%);
-        }
-        &:active{
-            background: green;
-        }
+}
+.post_project{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1 !important;
+    text-align: center;
+    li{
+        display: flex;
+        flex-direction: column;
+        margin: 1vw 2.5vh;
+        box-shadow: 0 2px 30px $first-text-color;
+        color: $first-text-color;
     }
-    & + a{
-        display: inline-block;
-        width: 10%;
-        background: green;
-        color: red;
-
-    }
+}
+.create_item{
+    position: sticky;
+    top: 0;
 }

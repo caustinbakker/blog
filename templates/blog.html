@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{%block title%}{% endblock %}
+{% block main %}
+<ul class='categorylist'>
+    {% for item in categorys.get_name() %}
+    <label>
+        <input type="checkbox">
+        <span>{{item}}</span>
+    </label>
+    {% endfor %}
+</ul>
+
+{{nav()}}
+
+<ul>
+{% for post in posts.date() %}
+    {% if post.get_media() %}
+
+
+    <li class="post_media">
+        <article>
+            <header>
+                <h2>{{post.name}}</h2>
+                <h3>{{post.created_date|datetimeformat}}</h3>
+            </header>
+
+            <p>{{post.content}}</p>
+
+            <ul>
+                {% for category in post.get_category() %}
+                    <h4>{{category.name}}</h4>
+                {% endfor %}
+            </ul>
+            <button onclick="media_selector({{count}})"> Next</button>
+        </article>
+        <figure>
+            {% for media in post.get_media() %}
+                <img class='post_media' src="{{media.media}}" alt="image from {{post.name}}">
+            {% endfor %}
+        </figure>
+
+    </li>
+    {% else %}
+    <li class="post_medialess">
+        <article>
+
+            <header>
+                <h2>{{post.name}}</h2>
+                <h3>{{post.created_date|datetimeformat}}</h3>
+            </header>
+
+            <p>{{post.content}}</p>
+
+                <ul>
+                    {% for category in post.get_category() %}
+                        <h4>{{category.name}}</h4>
+                    {% endfor %}
+                </ul>
+
+        </article>
+    </li>
+    {% endif %}
+{% endfor %}
+</ul>
+<!-- <script type="text/javascript" src="{{ url_for('static', filename='styles/js/media.js') }}"></script> -->
+
+{% endblock %}

@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS "category" ("id" INTEGER NOT NULL PRIMARY KEY, "name" VARCHAR(255) NOT NULL, "image" VARCHAR(255) NOT NULL);
+INSERT INTO category VALUES(1,'CAD','category/CAD.PNG');
+INSERT INTO category VALUES(2,'digitale beeldbewerking','category/digitale beeldbewerking.png');
+CREATE UNIQUE INDEX "category_name" ON "category" ("name");

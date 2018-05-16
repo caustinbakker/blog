@@ -1,10 +1,11 @@
 /* VARIABLES */
-$primary-color:#303F9F;
-$secondary-color:#004D40;
-$dark-primary-color:#1A1918;
-$dark-secondary-color: #465363;
-$primary-text-color: #40454B;
-$secondary-text-color: #ffffff;
+$first-color: #f4f1de;
+$second-color: #57467b;
+$third-color: #333333;
+$fouth-color: #f0544f;
+$firth-color: #3d405b;
+$first-text-color: #333333;
+$second-text-color: #ffffff;
 
 // FONTS
 $primary-text-font: 'Raleway', sans-serif;
@@ -14,20 +15,10 @@ $secondary-text-font: 'Roboto', sans-serif;
 @import "partials/_base";
 @import "partials/_nav";
 @import "partials/_flash";
-@import "partials/_post";
+@import "partials/_blog";
+@import "partials/_login";
 
 
-
-.post_1{
-    @extend .post;
-    background: white;
-    color: $dark-secondary-color;
-}
-.post_2{
-    @extend .post;
-    background: $dark-secondary-color;
-    color: white;
-}
 
 @import "partials/_project";
 @import "partials/_admin";
@@ -41,14 +32,18 @@ $secondary-text-font: 'Roboto', sans-serif;
     width: 100%;
     height: 10vh;
     transition: all 300ms;
-    background: $dark-secondary-color;
-    color: lighten($dark-secondary-color, 20%);
-    @include box-shadow();
+    color: lighten($first-text-color, 20%);
+    span{
+        position: relative;
+        width: 50%;
+        z-index: 1;
+        opacity: 1;
+    }
     h1{
+        width: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-grow: 1;
         color: inherit;
     }
 }
@@ -57,14 +52,18 @@ $secondary-text-font: 'Roboto', sans-serif;
     height: 5vh;
     h1{
         font-size: 1em;
-        color: $secondary-text-color;
+        color: $first-text-color;
+    }
+    span{
+        opacity: 0;
     }
 
 }
 #title{
-    background: #1ABC9C;
-    height: 39vh;
+    background: $second-color;
+    height: 70vh;
     display: flex;
+    flex-direction: column;
     padding: 0 0 1vh 0;
     justify-content: center;
     align-items: center;
@@ -76,5 +75,14 @@ $secondary-text-font: 'Roboto', sans-serif;
     h1{
         font-size: 5em;
     }
+}
 
+#title_head{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    h1{
+        font-size: 8em;
+    }
 }

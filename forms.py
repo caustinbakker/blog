@@ -35,5 +35,5 @@ class ProjectPost(FlaskForm):
 
 class Login(FlaskForm):
     """Login form."""
-
+    email = StringField('Email', validators=[DataRequired()])
     password = StringField('Access code', validators=[DataRequired()])

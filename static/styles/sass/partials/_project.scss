@@ -1,114 +1,107 @@
-.project{
-    position: relative;
+%project{
+    margin: 10vh 10vw;
+    height: 70vh;
     display: flex;
-    width: 100%;
-    height: 60vh;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-    li{
-        align-self: stretch;
-        flex-basis: 50%;
+    justify-content: space-around;
+    align-content: center;
+    color: $second-text-color;
+    header{
         position: relative;
-        overflow: hidden;
+        flex-grow: 1.3;
         text-align: center;
-        &:hover{
-            h2{
-                box-shadow: 5px 10px 20px 4px black;
-                transition-delay: 0ms;
-                flex-grow: 1;
-                font-size: 5em;
-                transition: font-size 300ms;
-            }
-            p{
-                transition-delay: 1000ms;
-                flex-grow: 3;
-            }
-            button{
-                transition-delay: 700ms;
-                flex-grow: 1;
-                box-shadow: 5px 10px 20px 4px black;
-            }
-            img{
-                filter: grayscale(100%);
-            }
-        }
-    }
-    img{
         height: 100%;
-        width: 100%;
-        display: block;
-        object-fit: cover;
-        z-index: -2;
-        transition: all 300ms;
-    }
-
-}
-.overlay{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    h2, p, button{
-        height: 0;
-        position: relative;
-        transition: flex-grow 300ms;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        overflow: hidden;
-        z-index: 1;
-        width: 100%;
-        color: $secondary-text-color;
-        &::before{
-            content: '';
-            background: $primary-text-color;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: .9;
+        flex-basis: 60%;
+        transition: all 2s;
+        h3{
+            margin: 5vh 0;
+            font-size: 4em;
         }
     }
-    h2, button{
-        transition-delay: 900ms;
-
-        &::before{
-            opacity: 1;
-        }
-    }
-    h2{
-        font-size: 10em;
-        transition: font-size 300ms;
+    header, figure{
+        flex: 1 1 0;
+        min-width: 0;
+        text-overflow: ellipsis;
+        // margin: 0 .5vw;
     }
     p{
-        transition-delay: 0;
+        overflow: hidden;
     }
-    button{
-        transition-delay: 300ms;
-        border: none;
-        a{
+    figure{
+        display: flex;
+        align-self: center;
+        transition: all 600ms;
+        height: 100%;
+        img{
+            overflow: hidden;
+            object-fit: cover;
+            width: inherit;
             transition: all 300ms;
-            padding: 3%;
-            color: $secondary-text-color;
-            border: .08em solid lighten($primary-text-color, 20%);
-            &:hover{
-                border-color: darken($primary-text-color, 20%);
-                transition: border-radius 900ms;
-                border-radius: 1em;
-
+        }
+        &:hover{
+            position: relative;
+            flex-basis: 100%;
+            height: 100%;
+            // box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            box-shadow: 0 0 30px 0 black;
+            z-index: 5;
+            img{
+                object-fit: contain;
             }
         }
-
     }
+    a{
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+}
+.project_l{
+    @extend %project;
+    margin-top: 10vw;
+    background: $fouth-color;
 
 }
-.all_projects{
-    height: 90vh;
-    @extend .project;
+.project_r{
+    @extend %project;
+    flex-direction: row-reverse;
+    background: $firth-color;
+
+}
+.project_loader{
+    flex-basis: 100% !important;
+}
+#projects{
+    transition: all 900ms;
+    position: absolute;
+    height: 0;
+    width: .25vw;
+    border-radius: 5px;
+    background: $first-text-color;
+    margin-left: 4.75vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    opacity: 0;
+    li{
+        display: flex;
+        justify-content: center;
+        background: $second-text-color;
+        color: $first-text-color;
+        font-size: 2em;
+        opacity: 0.6;
+        transition: all 300ms;
+        &:hover{
+            font-size: 4em;
+        }
+    }
+}
+
+.projects_fixed{
+    top: 0;
+    height: 100vh !important;
+    opacity: .7 !important;
+    position: fixed !important;
+    li{
+        opacity: 1 !important;
+    }
 }

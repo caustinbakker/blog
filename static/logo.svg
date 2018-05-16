@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 178.69 137.06">
+
+    <defs>
+        <style>
+            .cls-1,.cls-2{
+                fill:none;
+                stroke-miterlimit:10;
+                stroke-width:7px;}
+            .cls-1{stroke:#94b2ff;}
+            .cls-2{stroke:#fff;}
+            .st0 {
+            stroke-dasharray: 800;
+            stroke-dashoffset:0;
+            animation: dash 2s linear forwards;
+            }
+
+            @-webkit-keyframes dash {
+            from{
+                stroke-dashoffset: 800;
+            }
+            to{
+                stroke-dashoffset: 0;
+            }
+            }
+
+        </style>
+    </defs>
+
+    <title>Middel 1</title>
+
+<g id="Laag_2" data-name="Laag 2">
+    <g id="Laag_1-2" data-name="Laag 1">
+        <polyline class="cls-1" points="178.69 130.26 31.19 130.26 91.69 28.76 135.19 112.26"/>
+        <polyline class="cls-1" points="22.69 130.26 6.19 130.26 80.19 7.26 87.19 21.26"/>
+        <line class="cls-2" x1="19.19" y1="135.26" x2="92.19" y2="13.26"/>
+    </g>
+</g>
+</svg>
