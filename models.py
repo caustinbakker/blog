@@ -3,14 +3,10 @@ from peewee import *
 import datetime
 
 
-# db = MySQLDatabase('database',
-#                    host='35.233.225.232',
-#                    user='root',
-#                    passwd='qfIbhehmDHy9Ny6C')
-
-
-db = SqliteDatabase('blog.db')
-
+db = MySQLDatabase('database',
+                   host='35.233.225.232',
+                   user='root',
+                   passwd='qfIbhehmDHy9Ny6C')
 
 class Project(Model):
     """Projects."""
