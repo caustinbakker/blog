@@ -2,45 +2,41 @@
 {% block main %}
 {% from 'macros.html' import admin_item_list, admin_item_list_project %}
 <ul class="admin_panel">
-
-
-    <ul class='post_standalone'>
-        <a href="{{url_for('create_p')}}"><li class="create_item">Create new {{posts._meta.table_name}}</li></a>
-
-    {% for post in posts.standalone() %}
-    <a href="#">
-        <li>
-            <header>
-                <h3>{{post.name}}</h3>
-                <h4 style="margin-left:auto;">{{post.created_date|datetimeformat}}</h4>
-
-            </header>
-        <p>{{post.content}}</p>
-        {% if post.get_media() %}
-        <figure>
-            <img src="{{post.get_media().get().media}}" alt="">
-        </figure>
-        {% endif %}
-        </li>
-    </a>
-    {% endfor %}
+    <ul>
+        <a href="#"><li>Home</li></a>
+        <li>Projects <a href="{{url_for('create_p', id=0)}}">create</a> </li>
+        <li>Posts <a href="{{url_for('create_p')}}">create</a> </li>
     </ul>
 
 
-    <ul class="post_project">
-        <li class="create_item">Create new {{projects._meta.table_name}}</li>
-        {% for project in projects %}
-        <li>
-            <header>
-                <h3>{{project.name}}</h3>
-                <h4>{{project.created_date|datetimeformat}}</h4>
-            </header>
-            <p>
-                {{project.content}}
-            </p>
-            <a href="{{url_for('create_p', id=project.id)}}">Create new post for project</a>
-        </li>
-        {% endfor %}
+    <ul class="admin_display_panel">
+    {% for post in posts %}
+    <li>
+        <h3>{{post.name}}</h3>
+        <p>
+            {{post.content}}
+            <footer>
+                <a href="#">Edit</a>
+                <a href="#">View</a>
+                <a href="#">Remove</a>
+            </footer>
+        </p>
+    </li>
+    {% endfor %}
+    {% for project in projects %}
+    <li>
+        <h3>{{project.name}}</h3>
+        <p>
+            {{project.content}}
+            <footer>
+                <a href="{{url_for('create_p', id=project.id)}}">Add</a>
+                <a href="#">Edit</a>
+                <a href="#">View</a>
+                <a href="#">Remove</a>
+            </footer>
+        </p>
+    </li>
+    {% endfor %}
     </ul>
 </ul>
 {% endblock %}

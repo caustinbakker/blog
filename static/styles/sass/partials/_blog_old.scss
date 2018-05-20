@@ -1,0 +1,106 @@
+%post_blog{
+    background: $second-text-color;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    header{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 2.5%;
+        border-bottom: 3px solid $second-color;
+        h2{
+            align-self:baseline;
+            font-size: 3em;
+        }
+        h3{
+            align-self:baseline;
+            margin-left: auto;
+            font-size: .9em;
+            opacity: .8;
+        }
+    }
+    ul{
+        text-align: right;
+        opacity: .8;
+        margin-top: auto;
+    }
+    p{
+
+    }
+}
+
+.post_media{
+    @extend %post_blog;
+    flex-direction: row;
+    article{
+        min-width: 20vw;
+        min-height: 70vh;
+        padding: 5vh 2.5vw;
+        margin: 2.5vw 0 2.5vw 8vw;
+        box-shadow: 0 0 20px 1px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+    }
+    figure{
+        min-width: 70vw;
+        height: 70vh;
+        display: flex;
+        padding: 5vh 0;
+        align-self: center;
+        img{
+            display: block;
+            overflow: hidden;
+            object-fit: cover;
+            min-width: inherit;
+            min-height: inherit;
+        }
+    }
+}
+.post_medialess{
+    @extend %post_blog;
+    width: 70vw;
+    padding: 5vh 5vw;
+    margin: 2.5% auto;
+    box-shadow: 0 0 20px 1px;
+    h4{
+        display: inline-block;
+        right: 0;
+    }
+}
+.categorylist{
+    position: fixed;
+    display: flex;
+    width: 5vw;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5vh;
+    flex-direction: column;
+    label{
+        display: flex;
+        flex-grow: 1;
+        height: 100%;
+        background: green;
+        color: lighten(green, 15%);
+        transition: all 300ms;
+        width: 9vw;
+        margin-left: 1vw;
+    }
+    span{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: 500;
+    }
+    input{
+        position: absolute;
+        opacity: 0;
+    }
+    input:checked~span, span:hover{
+
+    }
+}

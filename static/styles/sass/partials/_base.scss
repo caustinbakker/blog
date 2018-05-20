@@ -2,16 +2,22 @@
     margin: 0;
     outline: none;
     scroll-behavior: smooth;
+    font-family: $primary-text-font;
+    color: $first-text-color;
+    font-weight: normal;
 }
-h1, h2, h3, h4{
-    font-family: 'Roboto', sans-serif;
-    position: relative;
-    overflow: hidden;
-    font-weight: 300;
+h1, h2, h3{
+    font-size: 60px;
+    font-weight: bold;
+}
+h2{
+    font-size: 48px;
+}
+h4, h5{
+    font-size: 12px;
 }
 body{
     overflow-x: hidden;
-    font-family: 'Raleway', sans-serif;
 }
 /* Head Elements*/
 ul, li, a{

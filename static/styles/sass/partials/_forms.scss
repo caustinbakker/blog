@@ -1,26 +1,36 @@
 .form-create{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    height: 100vh;
-
-    input, button{
-        position: relative;
-        width: 60%;
-        height: 100%;
-        border-radius: 10px;
-        background: lighten($first-text-color, 20%);
-        border: none;
-    }
-    div, button{
-        height: 10%;
-        margin: 2% 0;
-        width: 100%;
-    }
+    margin-top: 2.5vh;
+    width: 100vw;
+    height: 90vh;
+    background: white;
+    color: $second-text-color;
 }
-
-
+#name, #content{
+    margin: 2.5vh 0;
+    margin-left: 5vw;
+    padding: 5%;
+}
+#name{
+    width: 40vw;
+    height: 10vh;
+    font-size: 80px;
+}
+#content{
+    padding: 5vh;
+    min-width: 70vw;
+    max-width: 70vw;
+    height: 50vh;
+    text-align: center;
+    font-size: 18px;
+}
+#media{
+    width: 10vw;
+}
+.field{
+    display: inline-block;
+    margin: auto;
+    width: auto;
+}
 #csrf_token{
     display: none;
 }

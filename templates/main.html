@@ -4,37 +4,73 @@
 {% block main %}
 {% from "macros.html" import ppost %}
 
-<header id='title'>
-    <ul id='title_head'>
-        <li><h1>Austin Bakker</h1></li>
-        <li><h2>Industele product ontwerper</h2></li>
-        <li><h2>Fullstack web dev</h2></li>
-    </ul>
 {{nav()}}
-</header>
 
-<ul>
-    <ul id='projects'>
-        {% for project in projects %}
-        <a href="#{{project.name}}"><li>{{project.name}}</li></a>
-        {% endfor %}
-    </ul>
-    {% for project in projects %}
-        {% if project.get_project_media() %}
-    <li class='{{loop.cycle('project_l','project_r')}}' id={{project.name}}>
-        <header class='project_loader'>
-            <h3>{{project.name}}</h3>
-            <p>{{project.content}}</p>
-        </header>
-        <figure>
-            <a href="{{url_for('project', id=project.id)}}"><img src="{{project.get_project_media()}}" alt=""></a>
-        </figure>
+<!-- display 7 recent projects -->
+<ul class='projects'>
+    {% for project in projects.with_media() %}
 
+        {% if loop.index <= 3 %}
+            <li class='project_w'>
+                <img src="{{project.post.media.media}}" alt="">
+                <h2>{{project.name}}</h2>
 
-    {% endif %}
-    </li>
+            </li>
+
+        {% else %}
+            <li class='project_h'>
+                <img src="{{project.post.media.media}}" alt="">
+                <h2>{{project.name}}</h2>
+            </li>
+
+        {% endif %}
     {% endfor %}
 </ul>
+<!-- end projects -->
+<header id='title_head'>
+    <h1>Blog</h1>
+</header>
+
+<!-- timeline -->
+<ul class='timeline'>
+    <ul>
+        <li id='line'></li>
+        {% for post in posts %}
+            <li class='{{ loop.cycle('timeline_top', 'timeline_bot') }}'>
+                <a href="#{{post.id}}">{{post.name}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</ul>
+<!-- end timeline -->
+
+<!-- blog posts -->
+<ul>
+    {% for post in posts %}
+        {% if post.get_media() %}
+            <li id="{{post.id}}" class='{{ loop.cycle('blog_post_media_1', 'blog_post_media_2') }}'>
+                <header>
+                    <h3>{{post.name}}</h3>
+                    <p>{{post.content}}</p>
+                </header>
+
+                <figure>
+                    {% for media in post.get_media() %}
+                    <img src="{{media.media}}" alt="">
+                    {% endfor %}
+                </figure>
+            </li>
+        {% else %}
+            <li id="{{post.id}}" class="blog_post_nomedia">
+                <header>
+                    <h3>{{post.name}}</h3>
+                    <p>{{post.content}}</p>
+                </header>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
 <footer></footer>
 <script type="text/javascript" src="{{ url_for('static', filename='styles/js/project_loader.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='styles/js/project_list.js') }}"></script>

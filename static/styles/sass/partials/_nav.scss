@@ -1,58 +1,52 @@
-nav{
+#nav_bar{
+    position: sticky;
+    display: flex;
     top: 0;
-    position: relative;
-    width: 100%;
-    height: 10vh;
+    width: 90vw;
     z-index: 1000;
-    transition: all 600ms;
-    ul{
-        height: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-content: center;
-        width: 100%;
-        flex-direction: row;
-    }
+    padding: 3vh 5vw 15vh 5vw;
+    background: white;
+    transition: all 900ms;
+    align-items: center;
+    height: auto;
     li{
-        transition: all 600ms;
-        background: $third-color;
-        flex-grow: 1;
-        margin: 0 5%;
-        height: 100%;
-        justify-content: center;
-        &:first-child{
-            background: none;
-        }
-        &:first-child a{
-            width: auto;
-            display: inline-block;
-        }
-    }
-    a{
-        position: relative;
-        width: 100%;
+        transition: all 900ms;
         height: 100%;
         display: flex;
+        flex: 1 0 1%;
+        justify-content: center;
         align-items: center;
-        justify-content: inherit;
-        color: $second-text-color;
+        &:first-child{
+            flex-grow: 10;
+            display: inline-block;
+            a{
+                display: flex;
+                flex-direction: column;
+            }
+        }
     }
-    img{
-        height: 100%;
+    h1, h5{
+        transition: all 900ms;
+        height: auto;
     }
 }
 .nav_bar_fixed{
-    transition: all 600ms;
-    position: fixed;
-    height: 5vh;
-    box-shadow: 0 5px 30px 0;
-    li{
-        margin: 0;
-        &:first-child{
-            padding-left: 1%;
-            flex-grow: 7;
-            justify-content: left;
-            background: $second-color;
-        }
+    padding-top: 0 !important;
+    width: 95vw !important;
+    padding: 2.5vh 2.5vw !important;
+    height: auto;
+    box-shadow: 0 -10px 30px 0;
+    // position: sticky !important;
+    h1{
+        font-size: 20px !important;
+        height: 100%;
+        align-items: center;
+        display: flex;
     }
+    h5{
+        font-size: 0 !important;
+    }
+    li:first-child{
+        flex-grow: 15 !important;
+    };
 }

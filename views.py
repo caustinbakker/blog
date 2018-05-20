@@ -1,5 +1,5 @@
 """Main section for all views."""
-from app import app, login_manager
+from app import app, login_manager, photos
 from flask import Flask, render_template, url_for, redirect, flash, request
 from peewee import *
 from flask_uploads import UploadSet, IMAGES, configure_uploads
@@ -43,6 +43,7 @@ def admin():
                            posts=models.Post,
                            projects=models.Project)
 
+
 @app.route('/admin/create', methods=['GET', 'POST'])
 @app.route('/admin/create/<int:id>', methods=['GET', 'POST'])
 def create_p(id=None):
@@ -55,8 +56,16 @@ def create_p(id=None):
     # else:
     #     form = getattr(forms, model.title())
     #     model = getattr(models, model.title())
-    form = forms.Post()
+    if id == 0:
+        form = forms.Project()
+    else:
+        form = forms.Post()
+
     if form.validate_on_submit():
+            # photos.save(
+            #     file,
+            #     name=file.filename
+            # )
         # try:
         #     file = request.files['image']
         #     filepath = save_file(file, model, form, project_id)
@@ -68,11 +77,26 @@ def create_p(id=None):
         # for field in form:
         #     if field.id != 'image':
         #         items.update({field.id: field.data})
-        models.Post.create(project_id=id,
-                           name=form.name.data,
-                           content=form.content.data)
+        if id == 0:
+            models.Project.create(name=form.name.data,
+                                  content=form.content.data)
+        else:
+            models.Post.create(project_id=id,
+                               name=form.name.data,
+                               content=form.content.data)
+            post = models.Post.select().where((models.Post.name == form.name.data),
+                                              (models.Post.content == form.content.data)).get()
+
+
+        print('there are files')
+        filenames = request.files
+        for filename in filenames:
+            file = request.files.get(filename)
+            save_file(file, post.id)
+            # path = 'static/' + 'post/' + 'test.png'
+            # file.save(path)
         return redirect(url_for('admin'))
-    return render_template('create_item.html', form=form)
+    return render_template('create_p.html', form=form)
 
 
 @app.route('/admin/delete/<int:id>/<model>/<name>')
@@ -107,26 +131,43 @@ def login():
     return render_template('login.html', form=form)
 
 
-def save_file(file, model, form, project_id):
+def save_file(file, id):
     """Save file."""
-    if project_id is not None:
-        path = (str('static/' + str(model._meta.table_name)) +
-                '/' + str(project_id) + '/')
-    else:
-        path = str('static/' + str(model._meta.table_name) + '/')
-    try:
-        filename = form.name.data + '.' + file.filename.split('.')[-1]
-    except Exception:
-        pass
-
-    filepath = str(path + filename).lower()
-    print(filepath)
+    path = 'static/' + 'post/' + '{}/'.format(id)
+    path = path.lower()
+    filepath = (path + str(file.filename)).lower()
     try:
         file.save(filepath)
     except FileNotFoundError:
-        print('Creating File for images | ' + str(path))
         os.makedirs(path)
         file.save(filepath)
-    except Exception:
-        print('error')
-    return '/' + filepath
+
+
+def jpg_converter():
+    """Convert png files to jpg for optimisation."""
+    pass
+
+
+# def save_file(file, model, form, project_id):
+#     """Save file."""
+#     if project_id is not None:
+#         path = (str('static/' + str(model._meta.table_name)) +
+#                 '/' + str(project_id) + '/')
+#     else:
+#         path = str('static/' + str(model._meta.table_name) + '/')
+#     try:
+#         filename = form.name.data + '.' + file.filename.split('.')[-1]
+#     except Exception:
+#         pass
+#
+#     filepath = str(path + filename).lower()
+#     print(filepath)
+#     try:
+#         file.save(filepath)
+#     except FileNotFoundError:
+#         print('Creating File for images | ' + str(path))
+#         os.makedirs(path)
+#         file.save(filepath)
+#     except Exception:
+#         print('error')
+#     return '/' + filepath

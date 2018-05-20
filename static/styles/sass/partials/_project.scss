@@ -70,32 +70,6 @@
 .project_loader{
     flex-basis: 100% !important;
 }
-#projects{
-    transition: all 900ms;
-    position: absolute;
-    height: 0;
-    width: .25vw;
-    border-radius: 5px;
-    background: $first-text-color;
-    margin-left: 4.75vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    opacity: 0;
-    li{
-        display: flex;
-        justify-content: center;
-        background: $second-text-color;
-        color: $first-text-color;
-        font-size: 2em;
-        opacity: 0.6;
-        transition: all 300ms;
-        &:hover{
-            font-size: 4em;
-        }
-    }
-}
-
 .projects_fixed{
     top: 0;
     height: 100vh !important;
@@ -104,4 +78,35 @@
     li{
         opacity: 1 !important;
     }
+}
+%project_item{
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: center;
+z-index: 5;
+    img{
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        object-fit: cover;
+        z-index: -1;
+    }
+}
+.projects{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    background: $first-color;
+    text-align: center;
+}
+.project_w{
+    @extend %project_item;
+    flex: 1 0 33%;
+    height: 320px;
+}
+.project_h{
+    @extend %project_item;
+    flex: 1 1 25%;
+    height: 640px;
 }

@@ -1,14 +1,14 @@
-/* VARIABLES */
-$first-color: #f4f1de;
-$second-color: #57467b;
-$third-color: #333333;
+ /* VARIABLES */
+$first-color: #F3F3F3;
+$second-color: #444444;
+$third-color: #f0544f;
 $fouth-color: #f0544f;
 $firth-color: #3d405b;
-$first-text-color: #333333;
-$second-text-color: #ffffff;
-
+$first-text-color: #000000;
+$second-text-color: #444444;
+$third-text-color: #FFFFFF;
 // FONTS
-$primary-text-font: 'Raleway', sans-serif;
+$primary-text-font: 'Open Sans', sans-serif;
 $secondary-text-font: 'Roboto', sans-serif;
 
 @import "partials/_mixins";
@@ -82,7 +82,10 @@ $secondary-text-font: 'Roboto', sans-serif;
     flex-direction: column;
     align-items: center;
     height: 50%;
+    background: $second-color;
+    margin: 20vh 0 0 0;
     h1{
         font-size: 8em;
+        color: $third-text-color;
     }
 }

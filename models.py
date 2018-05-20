@@ -8,6 +8,7 @@ db = MySQLDatabase('database',
                    user='root',
                    passwd='qfIbhehmDHy9Ny6C')
 
+
 class Project(Model):
     """Projects."""
 
@@ -20,23 +21,21 @@ class Project(Model):
 
         database = db
 
-    def get_posts(self):
-        """Grab all the posts from project."""
-        return (ProjectPost.select().where(ProjectPost.project == self)
-                .order_by(ProjectPost.created_date))
-
-    def image(self):
-        """Grab image from get_posts."""
-        try:
-            return (ProjectPost.select().where(ProjectPost.project == self)
-                    .order_by(ProjectPost.created_date).get().image)
-        except Exception:
-            pass
-
     def get_project_media(self):
         """Grab image from get_posts."""
         post = Post.select().where(Post.project_id == self).get()
         return Media.select().where(Media.post_id == post).get().media
+
+    def with_media():
+        """Grab image from get_posts."""
+        projects = (Project.select(Project, Post, Media)
+                    .join(Post)
+                    .join(Media)
+                    .where(Post.id == Media.post_id
+                           and
+                           Project.id == Post.project_id))
+
+        return projects
 
 
 class Post(Model):

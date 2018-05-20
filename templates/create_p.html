@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block main %}
+{% from 'macros.html' import render_field %}
+        <form class="form-create" method="post" enctype="multipart/form-data">
+            {% for field in form %}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <div class="notification error">{{ error }}</div>
+                        {% endfor %}
+                        {% endif %}
+                    {{ field(placeholder=field.label.text) }}
+            {% endfor %}
+            <button type="submit" id='submit' name="button">Continue</button>
+        </form>
+{% endblock %}
