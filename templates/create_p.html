@@ -3,15 +3,22 @@
 
 {% block main %}
 {% from 'macros.html' import render_field %}
+        <header>
+            {{project.name}}
+        </header>
         <form class="form-create" method="post" enctype="multipart/form-data">
             {% for field in form %}
                     {% if field.errors %}
-                        {% for error in field.errors %}
-                            <div class="notification error">{{ error }}</div>
-                        {% endfor %}
+                            {% for error in field.errors %}
+                                <div class="notification error">{{ error }}</div>
+                            {% endfor %}
                         {% endif %}
                     {{ field(placeholder=field.label.text) }}
             {% endfor %}
             <button type="submit" id='submit' name="button">Continue</button>
         </form>
+        <img id='imagepreview' src="" alt="">
+
+        <script type="text/javascript" src="{{ url_for('static', filename='styles/js/preview_image.js') }}"></script>
+
 {% endblock %}

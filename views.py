@@ -48,35 +48,11 @@ def admin():
 @app.route('/admin/create/<int:id>', methods=['GET', 'POST'])
 def create_p(id=None):
     """Create a new item in the database."""
-    # if project_id is not None:
-    #     model = str(model.title() + 'Post')
-    #     form = getattr(forms, model)
-    #     model = getattr(models, model)
-    #     items.update({'project_id': project_id})
-    # else:
-    #     form = getattr(forms, model.title())
-    #     model = getattr(models, model.title())
     if id == 0:
         form = forms.Project()
     else:
         form = forms.Post()
-
     if form.validate_on_submit():
-            # photos.save(
-            #     file,
-            #     name=file.filename
-            # )
-        # try:
-        #     file = request.files['image']
-        #     filepath = save_file(file, model, form, project_id)
-        #     print('returned filepath' + ' ' + filepath)
-        #     items.update({'image': filepath})
-        # except Exception:
-        #     pass
-
-        # for field in form:
-        #     if field.id != 'image':
-        #         items.update({field.id: field.data})
         if id == 0:
             models.Project.create(name=form.name.data,
                                   content=form.content.data)
@@ -84,19 +60,24 @@ def create_p(id=None):
             models.Post.create(project_id=id,
                                name=form.name.data,
                                content=form.content.data)
-            post = models.Post.select().where((models.Post.name == form.name.data),
-                                              (models.Post.content == form.content.data)).get()
+            post = models.Post.select().where((models.Post.name ==
+                                               form.name.data),
+                                              (models.Post.content ==
+                                               form.content.data)).get()
 
-
-        print('there are files')
         filenames = request.files
         for filename in filenames:
             file = request.files.get(filename)
-            save_file(file, post.id)
-            # path = 'static/' + 'post/' + 'test.png'
-            # file.save(path)
+            filepath = save_file(file, post.id)
+            models.Media.create(
+                post_id=id,
+                media=filepath
+            )
         return redirect(url_for('admin'))
-    return render_template('create_p.html', form=form)
+    return render_template('create_p.html', form=form,
+                           project=(models.Project.select()
+                                    .where(models.Project.id
+                                           == id)).get())
 
 
 @app.route('/admin/delete/<int:id>/<model>/<name>')
@@ -141,6 +122,7 @@ def save_file(file, id):
     except FileNotFoundError:
         os.makedirs(path)
         file.save(filepath)
+    return filepath
 
 
 def jpg_converter():
