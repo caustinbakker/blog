@@ -9,6 +9,7 @@
 <!-- display 7 recent projects -->
 <ul class='projects'>
     {% for project in projects %}
+        {% if project.media_url() %}
             {% if loop.index <= 3 %}
                 <li class='project_w'>
                     <img src="{{project.media_url()}}" alt="">
@@ -24,6 +25,7 @@
                     </a>
                 </li>
             {% endif %}
+        {% endif %}
     {% endfor %}
 </ul>
 <!-- end projects -->

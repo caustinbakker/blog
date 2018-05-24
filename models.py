@@ -30,7 +30,7 @@ class Project(Model):
             return True
         except DoesNotExist:
             print('False')
-            return False
+            return None
 
     def with_media(self):
         """Grab image from get_posts."""
@@ -52,7 +52,7 @@ class Project(Model):
             media = Media.select().where(Media.post_id == post.id).get()
             return (media.media)
         except DoesNotExist:
-            return 'No media exists'
+            return False
 
     def media_post(self):
         """Return all posts that are accosicated with this project."""
