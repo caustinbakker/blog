@@ -70,7 +70,7 @@ def create_p(id=None):
             file = request.files.get(filename)
             filepath = save_file(file, post.id)
             models.Media.create(
-                post_id=id,
+                post_id=post.id,
                 media=filepath
             )
         return redirect(url_for('admin'))

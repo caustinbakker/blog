@@ -8,22 +8,22 @@
 
 <!-- display 7 recent projects -->
 <ul class='projects'>
-    {% for project in projects.with_media() %}
-
-        {% if loop.index <= 3 %}
-            <li class='project_w'>
-                <img src="{{project.post.media.media}}" alt="">
-                <h2>{{project.name}}</h2>
-
-            </li>
-
-        {% else %}
-            <li class='project_h'>
-                <img src="{{project.post.media.media}}" alt="">
-                <h2>{{project.name}}</h2>
-            </li>
-
-        {% endif %}
+    {% for project in projects %}
+            {% if loop.index <= 3 %}
+                <li class='project_w'>
+                    <img src="{{project.media_url()}}" alt="">
+                    <a href="{{url_for('project', id=project.id)}}">
+                    <h2>{{project.name}}</h2>
+                    </a>
+                </li>
+            {% else %}
+                <li class='project_h'>
+                    <img src="" alt="">
+                    <a href="{{url_for('project', id=project.id)}}">
+                    <h2>{{project.name}}</h2>
+                    </a>
+                </li>
+            {% endif %}
     {% endfor %}
 </ul>
 <!-- end projects -->
@@ -46,9 +46,10 @@
 
 <!-- blog posts -->
 <ul>
-    {% for post in posts %}
+    {% for post in posts.date() %}
         {% if post.get_media() %}
-            <li id="{{post.id}}" class='{{ loop.cycle('blog_post_media_1', 'blog_post_media_2') }}'>
+            <li  class='{{ loop.cycle('blog_post_media_1', 'blog_post_media_2') }}'>
+                <div class='anchor' id="{{post.id}}">  </div>
                 <header>
                     <h3>{{post.name}}</h3>
                     <p>{{post.content}}</p>
@@ -61,6 +62,7 @@
                 </figure>
             </li>
         {% else %}
+            <div class='anchor' id="{{post.id}}"></div>
             <li id="{{post.id}}" class="blog_post_nomedia">
                 <header>
                     <h3>{{post.name}}</h3>

@@ -7,7 +7,7 @@
 
 </section>
 
-{% for post in project.get_posts() %}
+{% for post in project.posts() %}
 <section class='section'>
     <li class="{{ loop.cycle('post_1', 'post_2') }}">
         <a name='{{post.id}}'></a>

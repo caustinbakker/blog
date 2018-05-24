@@ -1,7 +1,6 @@
 """import app function."""
-from app import app, DEBUG
+from app import app, DEBUG, db
 from flask import g
-from models import db
 from peewee import OperationalError
 import sass
 
@@ -10,12 +9,12 @@ import sass
 def before_request():
     """Connect database connect."""
     g.db = db
-    css_complier(DEBUG)
     try:
         g.db.connect()
     except OperationalError:
         g.db.close()
         g.db.connect()
+    css_complier(DEBUG) # if debug is false then does not run sass compiler
 
 
 @app.after_request

@@ -1,12 +1,7 @@
 """models."""
+from app import db
 from peewee import *
 import datetime
-
-
-db = MySQLDatabase('database',
-                   host='35.233.225.232',
-                   user='root',
-                   passwd='qfIbhehmDHy9Ny6C')
 
 
 class Project(Model):
@@ -26,16 +21,44 @@ class Project(Model):
         post = Post.select().where(Post.project_id == self).get()
         return Media.select().where(Media.post_id == post).get().media
 
-    def with_media():
-        """Grab image from get_posts."""
-        projects = (Project.select(Project, Post, Media)
-                    .join(Post)
-                    .join(Media)
-                    .where(Post.id == Media.post_id
-                           and
-                           Project.id == Post.project_id))
+    def check_media(self):
+        """Check if project has media."""
+        try:
+            post = Post.select().where(Post.project_id == self).get()
+            Media.select().where(Media.post_id == post.id).get()
+            print('True')
+            return True
+        except DoesNotExist:
+            print('False')
+            return False
 
-        return projects
+    def with_media(self):
+        """Grab image from get_posts."""
+        media = Post.select(Post, Media).join(Media).where(Post.project_id == self)
+
+        # media = Project.select(Project, Post, Media)
+        #             .join(Post)
+        #             .join(Media)
+        #             .where(Post.id == Media.post_id
+        #                    and
+        #                    Project.id == Post.project_id))
+        print(bool(media))
+        return bool(media)
+
+    def media_url(self):
+        """Return all posts that are accosicated with this project."""
+        post = Post.select().where(Post.project_id == self).order_by('created_date').get()
+        try:
+            media = Media.select().where(Media.post_id == post.id).get()
+            return (media.media)
+        except DoesNotExist:
+            return 'No media exists'
+
+    def media_post(self):
+        """Return all posts that are accosicated with this project."""
+        post = Post.select().where(Post.project_id == self)
+        return post.get_media()
+        # return Media.select().where(Media.post_id == post).get()
 
 
 class Post(Model):
