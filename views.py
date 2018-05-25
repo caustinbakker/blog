@@ -86,8 +86,9 @@ def create_post():
                 .where(
                     (models.Post.name == form.name.data),
                     (models.Post.content == form.content.data)).get())
+        print(post)
         for filename in request.files:
-            upload_image_file(request.files.get(filename), post.id)
+            upload_image_file(request.files.get(filename), int(post.id))
         return redirect(url_for('admin'))
     return render_template('create_post.html', form=form)
 
@@ -143,8 +144,10 @@ def upload_image_file(file, post_id):
             file.read(),
             content_type=file.content_type)
         url = blob.public_url
+        print(url)
+        print(post_id)
         models.Media.create(
-            post_id=post.id,
+            post_id=post_id,
             media=url)
     except Exception:
         return 'error'
