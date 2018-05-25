@@ -36,28 +36,25 @@ class Project(Model):
         """Grab image from get_posts."""
         media = Post.select(Post, Media).join(Media).where(Post.project_id == self)
 
-        # media = Project.select(Project, Post, Media)
-        #             .join(Post)
-        #             .join(Media)
-        #             .where(Post.id == Media.post_id
-        #                    and
-        #                    Project.id == Post.project_id))
         print(bool(media))
         return bool(media)
 
     def media_url(self):
         """Return all posts that are accosicated with this project."""
-        post = Post.select().where(Post.project_id == self).order_by('created_date').get()
+        post = (Post.select()
+                .where(Post.project_id == self)
+                .order_by('created_date').get())
         try:
-            media = Media.select().where(Media.post_id == post.id).get()
+            media = (Media.select()
+                     .where(Media.post_id == post.id)
+                     .get())
             return (media.media)
         except DoesNotExist:
             return False
 
-    def media_post(self):
+    def posts(self):
         """Return all posts that are accosicated with this project."""
-        post = Post.select().where(Post.project_id == self)
-        return post.get_media()
+        return Post.select().where(Post.project_id == self)
         # return Media.select().where(Media.post_id == post).get()
 
 

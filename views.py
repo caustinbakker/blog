@@ -1,10 +1,11 @@
 """Main section for all views."""
-from app import app, login_manager, photos
+from app import app, login_manager, _get_storage_client
 from flask import Flask, render_template, url_for, redirect, flash, request
 from peewee import *
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from datetime import datetime
 import os
+from google.cloud import storage
 
 import filters
 import forms
@@ -44,40 +45,51 @@ def admin():
                            projects=models.Project)
 
 
-@app.route('/admin/create', methods=['GET', 'POST'])
 @app.route('/admin/create/<int:id>', methods=['GET', 'POST'])
-def create_p(id=None):
+def create_p(id):
     """Create a new item in the database."""
-    if id == 0:
-        form = forms.Project()
-    else:
-        form = forms.Post()
+    form = forms.Project()
     if form.validate_on_submit():
-        if id == 0:
-            models.Project.create(name=form.name.data,
-                                  content=form.content.data)
-        else:
-            models.Post.create(project_id=id,
-                               name=form.name.data,
-                               content=form.content.data)
-            post = models.Post.select().where((models.Post.name ==
-                                               form.name.data),
-                                              (models.Post.content ==
-                                               form.content.data)).get()
+        models.Post.create(project_id=id,
+                           name=form.name.data,
+                           content=form.content.data)
+        post = (models.Post.select()
+                .where(
+                    (models.Post.name == form.name.data),
+                    (models.Post.content == form.content.data)).get())
 
-        filenames = request.files
+        filenames = request.files('')
         for filename in filenames:
-            file = request.files.get(filename)
-            filepath = save_file(file, post.id)
-            models.Media.create(
-                post_id=post.id,
-                media=filepath
-            )
+            try:
+                upload_image_file(request.files.get(filename), post.id)
+            except AttributeError:
+                pass
         return redirect(url_for('admin'))
-    return render_template('create_p.html', form=form,
-                           project=(models.Project.select()
-                                    .where(models.Project.id
-                                           == id)).get())
+    try:
+        project = (models.Project.select()
+                   .where(models.Project.id == id).get())
+        return render_template('create_p.html', form=form,
+                               project=project)
+    except DoesNotExist:
+        flash('No project by that id', 'fail')
+        return 'Ha, no project'
+
+
+@app.route('/admin/create/post', methods=['GET', 'POST'])
+def create_post():
+    """Display form for creating a post."""
+    form = forms.Post()
+    if form.validate_on_submit():
+        models.Post.create(name=form.name.data,
+                           content=form.content.data)
+        post = (models.Post.select()
+                .where(
+                    (models.Post.name == form.name.data),
+                    (models.Post.content == form.content.data)).get())
+        for filename in request.files:
+            upload_image_file(request.files.get(filename), post.id)
+        return redirect(url_for('admin'))
+    return render_template('create_post.html', form=form)
 
 
 @app.route('/admin/delete/<int:id>/<model>/<name>')
@@ -112,17 +124,30 @@ def login():
     return render_template('login.html', form=form)
 
 
-def save_file(file, id):
+def upload_image_file(file, post_id):
     """Save file."""
-    path = 'static/' + 'post/' + '{}/'.format(id)
-    path = path.lower()
-    filepath = (path + str(file.filename)).lower()
     try:
-        file.save(filepath)
-    except FileNotFoundError:
-        os.makedirs(path)
-        file.save(filepath)
-    return filepath
+        print('running upload image file')
+        path = 'post/' + '{}/'.format(post_id)
+        path = path.lower()
+        filepath = (path + str(file.filename)).lower()
+        try:
+            file.save(filepath)
+        except FileNotFoundError:
+            os.makedirs(path)
+            file.save(filepath)
+        client = _get_storage_client()
+        bucket = client.bucket(app.config['CLOUD_STORAGE_BUCKET'])
+        blob = bucket.blob(filepath)
+        blob.upload_from_string(
+            file.read(),
+            content_type=file.content_type)
+        url = blob.public_url
+        models.Media.create(
+            post_id=post.id,
+            media=url)
+    except Exception:
+        return 'error'
 
 
 def jpg_converter():

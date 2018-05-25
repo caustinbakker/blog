@@ -6,8 +6,7 @@
         <title>create_post</title>
     </head>
     <body>
-
-        <form class="form" action="" method="post">
+        <form class="form" action="" method="post" enctype="multipart/form-data">
             {% for field in form %}
                 {{ render_field(field) }}
             {% endfor %}

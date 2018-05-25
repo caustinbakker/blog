@@ -16,7 +16,7 @@ class Post(FlaskForm):
 
     name = StringField('Title', validators=[DataRequired()])
     file = FileField()
-    file = FileField()
+    file1 = FileField()
     content = TextAreaField('Content', validators=[DataRequired()])
 
 

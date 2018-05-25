@@ -1,5 +1,7 @@
 __pycache__/*
+*.pyc
 template.psd
 template.xd
 *.db
 config.py
+env/*
