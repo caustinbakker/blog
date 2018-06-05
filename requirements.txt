@@ -4,6 +4,7 @@ chardet==3.0.4
 click==6.7
 dill==0.2.7.1
 Flask==1.0.2
+Flask-FileUpload==0.5.0
 Flask-Login==0.4.1
 Flask-Uploads==0.2.1
 Flask-WTF==0.14.2
@@ -12,7 +13,7 @@ gapic-google-cloud-datastore-v1==0.15.3
 gapic-google-cloud-error-reporting-v1beta1==0.15.3
 gapic-google-cloud-logging-v2==0.91.3
 google-api-core==0.1.4
-google-auth==1.4.1
+google-auth==1.4.2
 google-cloud==0.33.1
 google-cloud-bigquery==0.28.0
 google-cloud-bigquery-datatransfer==0.1.1
@@ -66,7 +67,6 @@ pytz==2018.4
 requests==2.18.4
 rsa==3.4.2
 six==1.11.0
-SQLAlchemy==1.2.7
 tornado==5.0.2
 urllib3==1.22
 Werkzeug==0.14.1

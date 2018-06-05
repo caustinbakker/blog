@@ -15,8 +15,8 @@ class Post(FlaskForm):
     """Add planning to database."""
 
     name = StringField('Title', validators=[DataRequired()])
-    file = FileField()
-    file1 = FileField()
+    file_1 = FileField()
+    file_2 = FileField()
     content = TextAreaField('Content', validators=[DataRequired()])
 
 

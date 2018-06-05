@@ -5,36 +5,52 @@ from livereload import Server, shell
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from flask_login import LoginManager, login_user
 from jinja2 import Environment
+import logging
 import os
 import pymysql
-
-
-try:
-    db = MySQLDatabase(host='127.0.0.1', user='root', password='test', unix_socket='/cloudsql/austinbakkerblog:europe-west2:mydatabase1', database='database')
-    db.connect()
-    db.close()
-except OperationalError:
-    db = MySQLDatabase(host='35.234.157.177', database='database', user='austin', password='austin')
-    db.connect()
-    db.close()
-    print('Connected via remote ip')
-
-
-def _get_storage_client():
-    print('app.config')
-    print(app.config['PROJECT_ID'])
-    return storage.Client(
-        project=app.config['PROJECT_ID'])
-
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py', silent=False)
 DEBUG = app.debug
 
+try:
+    db = MySQLDatabase(host='127.0.0.1',
+                       user=app.config['CLOUDSQL_USER'],
+                       password=app.config['CLOUDSQL_PASSWORD'],
+                       unix_socket=app.config['CLOUDSQL_CONNECTION_NAME'],
+                       database=app.config['CLOUDSQL_DATABASE'])
+    db.connect()
+    db.close()
+    logging.info('Local connection to database')
+except Exception:
+    db = MySQLDatabase(host=app.config['CLOUDSQL_IP'],
+                       database=app.config['CLOUDSQL_DATABASE'],
+                       user=app.config['CLOUDSQL_USER'],
+                       password=app.config['CLOUDSQL_PASSWORD'])
+    db.connect()
+    db.close()
+    logging.info('Remote Connection to database')
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
+
+def _get_storage_client():
+    return storage.Client(
+        project=app.config['PROJECT_ID'])
+
+
+login_manager = LoginManager(app)
+login_manager.login_view = "login"
+login_manager.session_protection = "strong"
+
+
+def get_google_auth(state=None, token=None):
+    if token:
+        return OAuth2Session(Auth.CLIENT_ID, token=token)
+    if state:
+        return OAuth2Session(Auth.CLIENT_ID, state=state, redirect_uri=Auth.REDIRECT_URI)
+    oauth = OAuth2Session(Auth.CLIENT_ID, redirect_uri=Auth.REDIRECT_URI, scope=Auth.SCOPE)
+    return oauth
+
+
 
 import models
 from views import *

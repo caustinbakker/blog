@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock %}
 {% block main %}
 {% from "macros.html" import ppost %}
-
+{% from "macros.html" import postmedia %}
 {{nav()}}
 
 <!-- display 7 recent projects -->
@@ -58,9 +58,7 @@
                 </header>
 
                 <figure>
-                    {% for media in post.get_media() %}
-                    <img src="{{media.media}}" alt="">
-                    {% endfor %}
+                    {{postmedia(post)}}
                 </figure>
             </li>
         {% else %}

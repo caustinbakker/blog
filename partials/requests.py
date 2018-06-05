@@ -2,6 +2,7 @@
 from app import app, DEBUG, db
 from flask import g
 from peewee import OperationalError
+import logging
 import sass
 
 
@@ -14,7 +15,7 @@ def before_request():
     except OperationalError:
         g.db.close()
         g.db.connect()
-    css_complier(DEBUG) # if debug is false then does not run sass compiler
+    css_complier(DEBUG)  # if debug is false then does not run sass compiler
 
 
 @app.after_request
@@ -30,4 +31,4 @@ def css_complier(debug):
         sass.compile(dirname=('static/styles/sass',
                               'static/styles/css'),
                      output_style='compressed')
-        print('CSS updated')
+        logging.debug('CSS updated')

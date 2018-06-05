@@ -2,28 +2,21 @@
 
 {% block title %}All Projects{% endblock %}
 {% block main %}
-<section class='section'>
-    <nav>
-        
-    </nav>
-    <ul class="all_projects">
-        {% for project in projects.select() %}
-        <li>
-            <article class="overlay">
-                <!-- display project name -->
-                <h2>{{project.name.upper()}}</h2>
-                <!-- display project context -->
-                <p>{{project.content}}</p>
-                <button> <a href="{{url_for('project', id=project.id)}}">More about the {{project.name}} project</a> </button>
-            </article>
-                <!-- display project image -->
-                {%if project.image() %}
-                    <img src="{{project.image()}}" alt="Image from {{project.name}}">
-                {% endif %}
-        </li>
-        {% endfor %}
+{{nav()}}
+<ul class="all_projects">
+    {% for project in projects %}
+        {% if project.media_url() %}
+            <li>
+                <a href="{{url_for('project', id=project.id)}}">
+                <figure>
+                    <img src="{{project.media_url()}}" alt="Image from project {{project.name}}">
+                </figure>
+                <h2>{{project.name}}</h2>
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
 
-    </ul>
-</section>
+</ul>
 
 {% endblock %}

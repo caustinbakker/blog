@@ -4,4 +4,5 @@ template.psd
 template.xd
 *.db
 config.py
-env/*
+venv/*
+service_account.json

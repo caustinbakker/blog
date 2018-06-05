@@ -1,27 +1,23 @@
 {% extends "layout.html" %}
 {%block title%} {{project.name}} {% endblock %}
 {% block main %}
-<section class='section'>
+{% from "macros.html" import postmedia %}
+<section class='project_page'>
 <h1>{{project.name}}</h1>
-<p>{{project.content}}</p>
-
-</section>
 
 {% for post in project.posts() %}
-<section class='section'>
     <li class="{{ loop.cycle('post_1', 'post_2') }}">
         <a name='{{post.id}}'></a>
+        <figure>
+            {{postmedia(post)}}
+        </figure>
         <article>
             <h2>{{post.name}}</h2>
             <p>{{post.content}}</p>
         </article>
-        <figure>
-            <img src="{{post.image}}" alt="image from post {{post.name}}">
-        </figure>
     </li>
-</section>
 {% endfor %}
-
+</section>
 
 
 {% endblock %}

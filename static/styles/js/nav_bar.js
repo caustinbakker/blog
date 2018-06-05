@@ -1,5 +1,5 @@
-const nav_bar = document.querySelector('#nav_bar')
-const nav_bar_start = (nav_bar.offsetTop);
+var nav_bar = document.querySelector('#nav_bar')
+var nav_bar_start = (nav_bar.offsetTop);
 
 
 function nav_bar_js(){
@@ -8,7 +8,5 @@ function nav_bar_js(){
     }else{
         nav_bar.classList.remove('nav_bar_fixed');
     }
-    console.log(window.scrollY)
 }
-
 document.addEventListener('scroll', nav_bar_js);

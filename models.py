@@ -30,11 +30,12 @@ class Project(Model):
             return True
         except DoesNotExist:
             print('False')
-            return None
+            return False
 
     def with_media(self):
         """Grab image from get_posts."""
-        media = Post.select(Post, Media).join(Media).where(Post.project_id == self)
+        media = Post.select(Post, Media).join(Media).where(Post.project_id ==
+                                                           self)
 
         print(bool(media))
         return bool(media)
@@ -42,8 +43,7 @@ class Project(Model):
     def media_url(self):
         """Return all posts that are accosicated with this project."""
         post = (Post.select()
-                .where(Post.project_id == self)
-                .order_by('created_date').get())
+                .where(Post.project_id == self).get())
         try:
             media = (Media.select()
                      .where(Media.post_id == post.id)
@@ -55,7 +55,6 @@ class Project(Model):
     def posts(self):
         """Return all posts that are accosicated with this project."""
         return Post.select().where(Post.project_id == self)
-        # return Media.select().where(Media.post_id == post).get()
 
 
 class Post(Model):
@@ -128,6 +127,12 @@ class Category(Model):
             if categoryName not in categoryList:
                 categoryList.append(categoryName)
         return categoryList
+
+
+class User(Model):
+    email = CharField(unique=True, null=False)
+    name = CharField()
+    tokens = CharField()
 
 
 def initialize():

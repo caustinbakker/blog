@@ -7,8 +7,8 @@ runtime_config:
 
 
 env_variables:
-    SQL_USER: root
-    SQL_PASSWORD: test
+    SQL_USER: austin
+    SQL_PASSWORD: austin
     SQL_DATABASE: database
     INSTANCE_CONNECTION_NAME: austinbakkerblog:europe-west2:mydatabase1
 
@@ -16,13 +16,13 @@ env_variables:
 beta_settings:
     cloud_sql_instances: "austinbakkerblog:europe-west2:mydatabase1"
 
-handlers:
-- url: /.*
-  script: None
-  secure: always #forces https to be used
+# skip_files:
+# - venv/*
 
 automatic_scaling:
-  min_num_instances: 1
-  max_num_instances: 2
-  cpu_utilization:
-    target_utilization: 0.5
+  max_num_instances: 1
+  cool_down_period_sec: 60
+resources:
+  cpu: .01
+  memory_gb: 0.90
+  disk_size_gb: 10

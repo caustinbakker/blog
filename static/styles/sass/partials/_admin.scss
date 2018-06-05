@@ -15,8 +15,10 @@
         border: 2px solid #707070;
         border-radius: 10px;
         margin: 5vh 5%;
+        height: 100%;
+        overflow-y: auto;
         &:hover > footer{
-            height: 100%;
+            height: 30%;
             z-index: 5;
         }
     }
@@ -25,9 +27,14 @@
     }
     P{
         transition: all 600ms;
+        height: 60%;
+        text-overflow:ellipsis;
     }
     h3{
-        margin-top: 1%;
+        background: darken($second-color, 10%);
+        color: $third-text-color;
+        margin: 0;
+        text-align: center;
         font-size: 30px;
         font-weight: normal;
     }
@@ -37,13 +44,16 @@
         top: 0;
         right: 0;
         height: 0;
-        width: 20%;
-        margin-left: auto;
+        width: 100%;
+        justify-content: space-evenly;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        flex-direction: row;
         overflow: hidden;
+        background: darken($second-color, 10%);
+        color: $third-text-color;
+        a{
+            color: inherit;
+        }
         li{
             border: none;
             height: auto;
@@ -57,4 +67,10 @@
     flex: 1 0 1%;
     width: 100%;
     height: 100vh;
+}
+#project_post{
+    width: 70%;
+    margin-left: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }

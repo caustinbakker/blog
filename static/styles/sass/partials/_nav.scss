@@ -38,7 +38,7 @@
     box-shadow: 0 -10px 30px 0;
     // position: sticky !important;
     h1{
-        font-size: 20px !important;
+        font-size: 16px !important;
         height: 100%;
         align-items: center;
         display: flex;
@@ -48,5 +48,5 @@
     }
     li:first-child{
         flex-grow: 15 !important;
-    };
+    }
 }

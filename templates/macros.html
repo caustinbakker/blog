@@ -65,8 +65,8 @@
 <nav id='nav_bar'>
         <li><a href="{{url_for('main')}}">
             <h1>Austin Bakker</h1>
-            <h4>Industele product ontwerper</h4>
-            <h4>Fullstack web dev</h4>
+            <h5>Industele product ontwerper</h5>
+            <h5>Fullstack web dev</h5>
         </a></li>
         <li><a href="{{url_for('project', id=0)}}"> <h4>My projects</h4> </a></li>
         <li><a href="/#blog"> <h4>Blog</h4> </a></li>
@@ -75,4 +75,10 @@
 </nav>
 
 <script type="text/javascript" src="{{ url_for('static', filename='styles/js/nav_bar.js') }}"></script>
+{% endmacro %}
+
+{% macro postmedia(post) %}
+    {% for media in post.get_media() %}
+        <img src="{{media.media}}" alt="">
+    {% endfor %}
 {% endmacro %}

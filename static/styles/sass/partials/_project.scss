@@ -1,84 +1,42 @@
-%project{
-    margin: 10vh 10vw;
-    height: 70vh;
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
+.project_page{
     color: $second-text-color;
-    header{
-        position: relative;
-        flex-grow: 1.3;
+    h1{
+        margin: 10vh 30vw;
+        padding-bottom: 5vh;
+        border-bottom: .01em solid $second-text-color;
+        font-size: 128px;
         text-align: center;
-        height: 100%;
-        flex-basis: 60%;
-        transition: all 2s;
-        h3{
-            margin: 5vh 0;
-            font-size: 4em;
-        }
     }
-    header, figure{
-        flex: 1 1 0;
-        min-width: 0;
-        text-overflow: ellipsis;
-        // margin: 0 .5vw;
+    h2{
+        margin-top: .1vh;
+        margin-bottom: 5vh;
+        margin-left: 20vw;
+        width: auto;
+        border-bottom: .02em solid;
+        display: inline-block;
+        font-size: 48px;
+    }
+    figure, p{
+        max-width: 60vw;
+        margin: 0 auto;
     }
     p{
-        overflow: hidden;
+        width: 40%;
+        margin-bottom: 30vh;
+        margin-left: 20vw;
     }
     figure{
-        display: flex;
-        align-self: center;
-        transition: all 600ms;
-        height: 100%;
+        overflow: hidden;
+        width: 60%;
+        position: relative;
         img{
-            overflow: hidden;
+            width: 100%;
             object-fit: cover;
-            width: inherit;
-            transition: all 300ms;
-        }
-        &:hover{
-            position: relative;
-            flex-basis: 100%;
-            height: 100%;
-            // box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-            box-shadow: 0 0 30px 0 black;
-            z-index: 5;
-            img{
-                object-fit: contain;
-            }
+
         }
     }
-    a{
-        width: 100%;
-        height: 100%;
-        display: flex;
-    }
 }
-.project_l{
-    @extend %project;
-    margin-top: 10vw;
-    background: $fouth-color;
-
-}
-.project_r{
-    @extend %project;
-    flex-direction: row-reverse;
-    background: $firth-color;
-
-}
-.project_loader{
-    flex-basis: 100% !important;
-}
-.projects_fixed{
-    top: 0;
-    height: 100vh !important;
-    opacity: .7 !important;
-    position: fixed !important;
-    li{
-        opacity: 1 !important;
-    }
-}
+// display project for main page
 %project_item{
 position: relative;
 display: flex;
@@ -109,4 +67,30 @@ z-index: 5;
     @extend %project_item;
     flex: 1 1 25%;
     height: 640px;
+}
+.all_projects{
+    display: flex;
+    flex-flow: row wrap;
+    li{
+        margin: 10vh 2vw;
+        flex: 1 0 33vw;
+        height: auto;
+        position: relative;
+        box-shadow: 0 .4em 1.5em;
+    }
+    figure{
+        height: 100%;
+        overflow: hidden;
+    }
+    img{
+        width: 100%;
+        object-fit: cover;
+    }
+    h2{
+        position: absolute;
+        top: 45%;
+        width: 100%;
+        align-content: center;
+        text-align: center;
+    }
 }
