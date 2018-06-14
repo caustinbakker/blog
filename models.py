@@ -2,6 +2,7 @@
 from app import db
 from peewee import *
 import datetime
+from flask_login import UserMixin
 
 
 class Project(Model):
@@ -37,7 +38,6 @@ class Project(Model):
         media = Post.select(Post, Media).join(Media).where(Post.project_id ==
                                                            self)
 
-        print(bool(media))
         return bool(media)
 
     def media_url(self):
@@ -129,14 +129,20 @@ class Category(Model):
         return categoryList
 
 
-class User(Model):
+class User(UserMixin, Model):
+    """User model for login."""
+
     email = CharField(unique=True, null=False)
-    name = CharField()
-    tokens = CharField()
+
+    class Meta(object):
+        """Database."""
+
+        database = db
+
 
 
 def initialize():
     """Create tables."""
     db.connect()
-    db.create_tables([Category, Project, Post, Media], safe=True)
+    db.create_tables([Category, Project, Post, Media, User], safe=True)
     db.close()

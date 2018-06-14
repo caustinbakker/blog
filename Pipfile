@@ -77,6 +77,7 @@ MarkupSafe = "==1.0"
 PyMySQL = "==0.8.1"
 Werkzeug = "==0.14.1"
 WTForms = "==2.1"
+flask-caching = "*"
 
 [dev-packages]
 

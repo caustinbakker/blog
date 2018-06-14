@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% block head %} <link rel="canonical" href="https://austinbakker.com/" /> {% endblock %}  
 {% block title %}Home{% endblock %}
 {% block main %}
 {% from "macros.html" import ppost %}
@@ -12,7 +12,7 @@
         {% if project.media_url() %}
             {% if loop.index <= 3 %}
                 <li class='project_w'>
-                    <img src="{{project.media_url()}}" alt="">
+                    <img src="{{project.media_url()}}" alt="Image from {{project.name}}">
                     <a href="{{url_for('project', id=project.id)}}">
                     <h2>{{project.name}}</h2>
                     </a>
@@ -30,7 +30,7 @@
 </ul>
 <!-- end projects -->
 <header id='title_head'>
-    <h1>Blog</h1>
+    <h2>Blog</h2>
 </header>
 
 <!-- timeline -->

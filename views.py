@@ -1,23 +1,72 @@
 """Main section for all views."""
-from app import app, login_manager, _get_storage_client
-from flask import Flask, render_template, url_for, redirect, flash, request
+from app import app, login_manager, _get_storage_client, cache
+from flask import Flask, render_template, url_for, redirect, flash, request, session, jsonify, send_from_directory
 from peewee import *
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from datetime import datetime
+# from flask_caching import Cached
 from google.cloud import storage
 import logging
 import os
 from urllib.parse import unquote
+from flask_login import login_required, current_user, login_user
+from flask_oauthlib.client import OAuth
+oauth = OAuth(app)
 
 import filters
 import forms
 import models
 
+google = oauth.remote_app(
+    'google',
+    consumer_key=app.config['GOOGLE_CLIENT_ID'],
+    consumer_secret=app.config['GOOGLE_CLIENT_SECRET'],
+    request_token_params={
+        'scope': 'email'
+    },
+    base_url='https://www.googleapis.com/oauth2/v1/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+)
+
+@app.route('/login')
+def login():
+    return google.authorize(callback=url_for('authorized', _external=True))
+
+
+
+@app.route('/login/authorized')
+def authorized():
+    resp = google.authorized_response()
+    if resp is None:
+        return 'Access denied: reason=%s error=%s' % (
+            request.args['error_reason'],
+            request.args['error_description']
+        )
+    session['google_token'] = (resp['access_token'], '')
+    user = google.get('userinfo').data
+    email = user.get('email')
+    userm = models.User.select().where(models.User.email == email).get()
+    login_user(userm)
+    return redirect('admin')
+
+
+@google.tokengetter
+def get_google_oauth_token():
+    return session.get('google_token')
+
+
+@login_manager.user_loader
+def load_user(userid):
+    return models.User(userid)
 
 logging.basicConfig(level=logging.DEBUG)
 
 
 @app.route('/', methods=['GET', 'POST'])
+@cache.cached(timeout=50)
 def main():
     """Display main webpage."""
     return render_template('main.html',
@@ -28,6 +77,7 @@ def main():
 
 
 @app.route('/blog', methods=['GET', 'POST'])
+@cache.cached(timeout=50)
 def blog():
     """Display main webpage."""
     return render_template('blog.html',
@@ -37,12 +87,14 @@ def blog():
 
 
 @app.route('/about')
+@cache.cached(timeout=50)
 def about():
     """Render about_me.html."""
     return render_template('about_me.html')
 
 
 @app.route('/admin', methods=['GET', 'POST'])
+@login_required
 def admin():
     """Display admin panel."""
     return render_template('admin.html',
@@ -51,6 +103,7 @@ def admin():
 
 
 @app.route('/admin/create/post/<int:id>', methods=['GET', 'POST'])
+@login_required
 def create_post(id=None):
     """Display form for creating a post."""
     form = forms.Post()
@@ -72,6 +125,7 @@ def create_post(id=None):
 
 
 @app.route('/admin/delete/<int:id>/<model>/<name>')
+@login_required
 def delete_item(model, id, name):
     """Delete a item."""
     models.db.execute_sql("DELETE FROM {} WHERE id = {}".format(model, id))
@@ -89,44 +143,16 @@ def project(id=None):
                            project=models.Project.get(models.Project.id == id)
                            )
 
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    """Login screen."""
-    form = forms.Login()
-    if form.validate_on_submit():
-        if (password == form.password.data):
-            flash('Login Sucessfull')
-            return redirect(url_for('admin'))
-        else:
-            flash('Login failed!')
-    return render_template('login.html', form=form)
-
-
-def save_media_url(post_id, url):
-    """Save url to post id."""
-    logging.debug('Saving {} URL to {} post id'.format(url, post_id))
-    models.Media.create(
-        post_id=post_id,
-        media=url)
-
+@app.route('/robots.txt')
+@app.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 def upload_file(file, post_id):
     """Save file."""
     path = 'post/{}/'.format(post_id)
     path = path.lower()
     filepath = (path + str(file.filename)).lower()
-    try:
-        client = _get_storage_client()
-    except Exception:
-        client = storage.Client.from_service_account_json(
-            'service_account.json')
-    bucket = client.bucket(app.config['CLOUD_STORAGE_BUCKET'])
-    blob = bucket.blob(filepath)
-    blob.upload_from_string(
-        file.read(),
-        content_type=file.content_type)
-    url = blob.public_url
-    url = unquote(url)
+    file.save()
     logging.debug('uploaded {} at {}'.format(file.name, url))
     save_media_url(post_id, url)

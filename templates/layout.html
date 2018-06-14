@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta Strict-Transport-Security: max-age=31536000; includeSubDomains>
         <!-- description -->
-        <meta name="description" content="Austin Bakker's Blog, Portfolio, and Project's">
+        <meta name="description" content="Austin Bakker's Blog. Bekijk Project, en concepten, en het traject wat het door is gegaan.">
         <!-- Website Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
         <!-- end website fonts -->
 
-        <!-- <link rel="shortcut icon" href="{{ url_for('static', filename='styles/favicon.ico') }}" type="image/x-icon"> -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='styles/favicon.ico') }}" type="image/x-icon">
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118156253-1"></script>
@@ -27,6 +27,8 @@
 
                  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <title>{% block title %}{% endblock %} | Austin Bakker's Blog</title>
+        {% block head %}
+        {% endblock %}  
     </head>
     <body>
 
