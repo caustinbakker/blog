@@ -4,19 +4,16 @@ from flask import Flask, render_template, url_for, redirect, flash, request, ses
 from peewee import *
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from datetime import datetime
-# from flask_caching import Cached
 from google.cloud import storage
 import logging
 import os
 from urllib.parse import unquote
 from flask_login import login_required, current_user, login_user
 from flask_oauthlib.client import OAuth
-oauth = OAuth(app)
-
 import filters
 import forms
 import models
-
+oauth = OAuth(app)
 google = oauth.remote_app(
     'google',
     consumer_key=app.config['GOOGLE_CLIENT_ID'],
@@ -36,6 +33,11 @@ def login():
     return google.authorize(callback=url_for('authorized', _external=True))
 
 
+@app.route('/logout')
+def logout():
+    session.pop('google_token', None)
+    return redirect(url_for('index'))
+
 
 @app.route('/login/authorized')
 def authorized():
@@ -46,11 +48,8 @@ def authorized():
             request.args['error_description']
         )
     session['google_token'] = (resp['access_token'], '')
-    user = google.get('userinfo').data
-    email = user.get('email')
-    userm = models.User.select().where(models.User.email == email).get()
-    login_user(userm)
-    return redirect('admin')
+    me = google.get('userinfo')
+    return jsonify({"data": me.data})
 
 
 @google.tokengetter

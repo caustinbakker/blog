@@ -42,4 +42,4 @@ if __name__ == '__main__':
     models.initialize()
     print('=' * 100)
     DEBUG = True
-    app.run()
+    app.run(debug=DEBUG)
