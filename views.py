@@ -1,6 +1,7 @@
 """Main section for all views."""
 from app import app, login_manager, _get_storage_client, cache
-from flask import Flask, render_template, url_for, redirect, flash, request, session, jsonify, send_from_directory
+from flask import (Flask, render_template, url_for, redirect, flash, request,
+                   session, jsonify, send_from_directory)
 from peewee import *
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from datetime import datetime
@@ -9,60 +10,21 @@ import logging
 import os
 from urllib.parse import unquote
 from flask_login import login_required, current_user, login_user
-from flask_oauthlib.client import OAuth
 import filters
 import forms
 import models
-oauth = OAuth(app)
-google = oauth.remote_app(
-    'google',
-    consumer_key=app.config['GOOGLE_CLIENT_ID'],
-    consumer_secret=app.config['GOOGLE_CLIENT_SECRET'],
-    request_token_params={
-        'scope': 'email'
-    },
-    base_url='https://www.googleapis.com/oauth2/v1/',
-    request_token_url=None,
-    access_token_method='POST',
-    access_token_url='https://accounts.google.com/o/oauth2/token',
-    authorize_url='https://accounts.google.com/o/oauth2/auth',
-)
 
-@app.route('/login')
-def login():
-    return google.authorize(callback=url_for('authorized', _external=True))
+import _views.auth
 
 
-@app.route('/logout')
-def logout():
-    session.pop('google_token', None)
-    return redirect(url_for('index'))
+logging.basicConfig(level=logging.DEBUG)
 
-
-@app.route('/login/authorized')
-def authorized():
-    resp = google.authorized_response()
-    if resp is None:
-        return 'Access denied: reason=%s error=%s' % (
-            request.args['error_reason'],
-            request.args['error_description']
-        )
-    session['google_token'] = (resp['access_token'], '')
-    me = google.get('userinfo')
-    return jsonify({"data": me.data})
-
-
-@google.tokengetter
-def get_google_oauth_token():
-    return session.get('google_token')
 
 
 @login_manager.user_loader
 def load_user(userid):
+    """Load user."""
     return models.User(userid)
-
-logging.basicConfig(level=logging.DEBUG)
-
 
 @app.route('/', methods=['GET', 'POST'])
 @cache.cached(timeout=50)
@@ -142,16 +104,30 @@ def project(id=None):
                            project=models.Project.get(models.Project.id == id)
                            )
 
+
 @app.route('/robots.txt')
 @app.route('/sitemap.xml')
 def static_from_root():
+    """File from root."""
     return send_from_directory(app.static_folder, request.path[1:])
+
 
 def upload_file(file, post_id):
     """Save file."""
     path = 'post/{}/'.format(post_id)
     path = path.lower()
     filepath = (path + str(file.filename)).lower()
-    file.save()
+    try:
+        client = _get_storage_client()
+    except Exception:
+        client = storage.Client.from_service_account_json(
+            'service_account.json')
+    bucket = client.bucket(app.config['CLOUD_STORAGE_BUCKET'])
+    blob = bucket.blob(filepath)
+    blob.upload_from_string(
+        file.read(),
+        content_type=file.content_type)
+    url = blob.public_url
+    url = unquote(url)
     logging.debug('uploaded {} at {}'.format(file.name, url))
     save_media_url(post_id, url)

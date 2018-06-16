@@ -133,12 +133,12 @@ class User(UserMixin, Model):
     """User model for login."""
 
     email = CharField(unique=True, null=False)
+    password = CharField(null=False)
 
     class Meta(object):
         """Database."""
 
         database = db
-
 
 
 def initialize():

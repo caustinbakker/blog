@@ -41,5 +41,5 @@ from views import *
 if __name__ == '__main__':
     models.initialize()
     print('=' * 100)
-    DEBUG = True
+    DEBUG = False
     app.run(debug=DEBUG)
