@@ -112,6 +112,14 @@ def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
 
 
+def save_media_url(post_id, url):
+    """Save url to post id."""
+    logging.debug('Saving {} URL to {} post id'.format(url, post_id))
+    models.Media.create(
+        post_id=post_id,
+        media=url)
+    
+
 def upload_file(file, post_id):
     """Save file."""
     path = 'post/{}/'.format(post_id)
