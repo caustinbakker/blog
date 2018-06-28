@@ -79,6 +79,6 @@
 
 {% macro postmedia(post) %}
     {% for media in post.get_media() %}
-        <img src="{{media.media}}" alt="">
+        <img src="{{media.media}}" alt="Image from {{post.name}}">
     {% endfor %}
 {% endmacro %}

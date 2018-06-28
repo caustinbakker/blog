@@ -10,7 +10,7 @@ class Project(Model):
 
     name = CharField(unique=True)
     content = CharField()
-    created_date = DateTimeField(default=datetime.datetime.today())
+    created_date = DateTimeField(default=datetime.datetime.now())
 
     class Meta(object):
         """Select database."""
@@ -27,10 +27,8 @@ class Project(Model):
         try:
             post = Post.select().where(Post.project_id == self).get()
             Media.select().where(Media.post_id == post.id).get()
-            print('True')
             return True
         except DoesNotExist:
-            print('False')
             return False
 
     def with_media(self):
@@ -66,7 +64,7 @@ class Post(Model):
     "Media Model"
     "Category Model"
     "Project Model"
-    created_date = DateTimeField(default=datetime.datetime.today())
+    created_date = DateTimeField(default=datetime.datetime.now())
 
     class Meta(object):
         """Select database."""
